@@ -1,0 +1,18 @@
+# git ignore file
+
+# Use glob syntax
+syntax:glob
+
+# Build artifacts
+bin
+obj
+*.o
+
+# temp files
+tmp
+*.tmp
+*~
+
+# image files
+img
+
