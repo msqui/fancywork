@@ -1,9 +1,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#include <Magick++.h>
-
 #include "util/Messages.h"
+#include "fancy/IMagickImage.h"
+
 
 using namespace fw;
 
@@ -18,11 +18,11 @@ int main (int argc, char const* argv[])
 	std::string filename = argv[1];
 	try
 	{
-		Magick::Image myImg;
-		myImg.read(filename);
-		std::cout << filename << " has:" << std::endl;
-		std::cout << myImg.columns() << " columns" << std::endl;
-		std::cout << myImg.rows() << " rows" << std::endl;
+		fancy::IMagickImage* myImg = fancy::IMagickImage::create(filename);
+		
+		std::cout << myImg->filename() << " has:" << std::endl;
+		std::cout << myImg->width() << " columns" << std::endl;
+		std::cout << myImg->height() << " rows" << std::endl;
 	}
 	catch(Magick::Error& e)
 	{
