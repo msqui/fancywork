@@ -19,7 +19,7 @@ mkdir=mkdir -p $(1)
 RM=rm -rf
 
 # file lists
-SRC=main.cpp
+SRC=main.cpp util/Messages.cpp
 SRC_LIST=$(patsubst %,$(SRC_DIR)/%,$(SRC))
 OBJ=$(patsubst %.$(S_EXT),%.$(O_EXT),$(SRC))
 OBJ_LIST=$(patsubst %,$(OBJ_DIR)/%,$(OBJ))

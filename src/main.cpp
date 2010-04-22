@@ -3,13 +3,15 @@
 
 #include <Magick++.h>
 
-void usage();
+#include "util/Messages.h"
+
+using namespace fw;
 
 int main (int argc, char const* argv[])
 {
 	if (argc < 2)
 	{
-		usage();
+		util::Messages::usage();
 		return EXIT_FAILURE;
 	}
 	
@@ -36,8 +38,4 @@ int main (int argc, char const* argv[])
 	return EXIT_SUCCESS;
 }
 
-void usage()
-{
-	std::cout << "Usage: fancywork <filename>" << std::endl;
-}
 
