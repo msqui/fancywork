@@ -5,6 +5,8 @@
 
 #include <string>
 #include <boost/utility.hpp>
+#include <boost/shared_ptr.hpp>
+
 #include <Magick++.h>
 
 namespace fw {
@@ -13,7 +15,9 @@ namespace fancy {
 class IMagickImage : public Image, private boost::noncopyable
 {
 public:
-	static IMagickImage* create(const std::string& filename);
+	typedef boost::shared_ptr<IMagickImage> IMagickImagePtrT;
+	
+	static IMagickImagePtrT create(const std::string& filename);
 	
 	void open(const std::string& filename);
 	

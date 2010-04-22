@@ -9,9 +9,10 @@ IMagickImage::IMagickImage(const std::string& filename) :
 	open(_filename);
 }
 
-IMagickImage* IMagickImage::create(const std::string& filename)
+IMagickImage::IMagickImagePtrT
+IMagickImage::create(const std::string& filename)
 {
-	return new IMagickImage(filename);
+	return IMagickImagePtrT(new IMagickImage(filename));
 }
 
 void IMagickImage::open(const std::string& filename)

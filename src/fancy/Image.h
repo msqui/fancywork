@@ -2,6 +2,7 @@
 #define __IMAGE_H__
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace fw {
 namespace fancy {
@@ -9,6 +10,13 @@ namespace fancy {
 class Image
 {
 public:
+	typedef boost::shared_ptr<Image> ImagePtrT;
+	
+	template <typename CreatorT>
+	static ImagePtrT create(const std::string& filename)
+	{
+		return CreatorT::create(filename);
+	}
 
 	std::string filename() const;
 		

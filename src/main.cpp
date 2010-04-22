@@ -18,7 +18,8 @@ int main (int argc, char const* argv[])
 	std::string filename = argv[1];
 	try
 	{
-		fancy::IMagickImage* myImg = fancy::IMagickImage::create(filename);
+		fancy::Image::ImagePtrT myImg = 
+					fancy::Image::create<fancy::IMagickImage>(filename);
 		
 		std::cout << myImg->filename() << " has:" << std::endl;
 		std::cout << myImg->width() << " columns" << std::endl;
