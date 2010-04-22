@@ -21,11 +21,6 @@ protected:
 	Image (const std::string& filename);
 	
 	std::string _filename;
-
-private:
-	Image ();
-	Image (const Image&);
-	void operator= (const Image&);
 };
 
 }}

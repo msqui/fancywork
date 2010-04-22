@@ -2,8 +2,11 @@
 
 # compiler attributes
 CC=g++
-CFLAGS=-W -Wall -pthread `Magick++-config --cppflags`
-LDFLAGS=`Magick++-config --ldflags --libs`
+CFLAGS=-W -Wall -pthread `Magick++-config --cppflags`\
+				-I/usr/local/boost/include/
+				
+LDFLAGS=`Magick++-config --ldflags --libs`\
+				-L/usr/local/boost/lib
 
 # extensions
 S_EXT=cpp

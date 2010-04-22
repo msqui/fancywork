@@ -4,13 +4,13 @@
 #include "Image.h"
 
 #include <string>
-
+#include <boost/utility.hpp>
 #include <Magick++.h>
 
 namespace fw {
 namespace fancy {
 
-class IMagickImage : public Image
+class IMagickImage : public Image, private boost::noncopyable
 {
 public:
 	static IMagickImage* create(const std::string& filename);
@@ -24,10 +24,6 @@ private:
 	Magick::Image _img;
 
 	IMagickImage(const std::string& filename);
-	
-	IMagickImage();
-	IMagickImage(const IMagickImage&);
-	void operator= (const IMagickImage&);
 };
 
 }}
