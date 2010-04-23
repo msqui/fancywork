@@ -2,6 +2,7 @@
 
 #include "test/src/sample_test.hpp"
 #include "test/src/util/Messages.hpp"
+#include "test/src/fancy/Image.hpp"
 #include "test/src/fancy/IMagickImage.hpp"
 
 int main (int argc, char** argv)
