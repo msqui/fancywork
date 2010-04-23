@@ -1,14 +1,8 @@
 CC=g++
 
-BOOST_PATH=/usr/local/src/boost_1_42_0
-BOOST_INC_PATH=$(BOOST_PATH)
-BOOST_LIB_PATH=$(BOOST_PATH)/stage/lib
-
 CFLAGS=-W -Wall -I../ \
-			-I$(BOOST_INC_PATH) \
 			`Magick++-config --cppflags`
 LDFLAGS=-lgtest \
-			-L$(BOOST_LIB_PATH) \
 			`Magick++-config --ldflags --libs`
 
 SRC_DIR=src
