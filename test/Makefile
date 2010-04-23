@@ -16,12 +16,14 @@ CLASS_TEST_SRC=util/Messages.hpp \
 					fancy/Image.hpp \
 					fancy/IMagickImage.hpp
 
-OTHER_TEST_SRC=sample_test.hpp
+OTHER_TEST_SRC=
+
 TEST_SRC=$(CLASS_TEST_SRC) $(OTHER_TEST_SRC)
 TEST_SRC_LIST=$(patsubst %,$(SRC_DIR)/%,$(TEST_SRC))
 
 CLASS_OBJ_LIST=$(patsubst %.hpp,../obj/%.o,$(CLASS_TEST_SRC))
 OTHER_OBJ_LIST=
+
 OBJ_LIST=$(CLASS_OBJ_LIST) $(OTHER_OBJ_LIST)
 
 EXEC=fancywork_test
