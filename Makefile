@@ -1,43 +1,82 @@
-# Variable definitions
+# 
+#  Makefile for main build tree
+#  fancywork
+#  
+#  Created by msqui on 2010-04-23.
+#  Copyright 2010 greenfrog. All rights reserved.
+# 
 
-# compiler attributes
+# =============
+# = VARIABLES =
+# =============
+
+# =======================
+# = compiler attributes =
+# =======================
 CC=g++
 
+# compilation flags
 CFLAGS=-W -Wall -pthread \
 			`Magick++-config --cppflags`
 
+# linking flags
 LDFLAGS=`Magick++-config --ldflags --libs`
 
-# extensions
+
+# ===================
+# = file extensions =
+# ===================
 S_EXT=cpp
 O_EXT=o
 
-# dir names
+
+# =============
+# = dir names =
+# =============
 SRC_DIR=src
 OBJ_DIR=obj
 BIN_DIR=bin
 
-# shell commands
+
+# ==================
+# = shell commands =
+# ==================
 mkdir=mkdir -p $(1)
 RM=rm -rf
 
-# file lists
 
+# ==============
+# = File lists =
+# ==============
+
+# SOURCES
+
+# source files list
 SRC=main.cpp\
 		util/Messages.cpp\
 		fancy/Image.cpp\
 		fancy/IMagickImage.cpp
 
+# sources with dirs
 SRC_LIST=$(patsubst %,$(SRC_DIR)/%,$(SRC))
-OBJ=$(patsubst %.$(S_EXT),%.$(O_EXT),$(SRC))
-OBJ_LIST=$(patsubst %,$(OBJ_DIR)/%,$(OBJ))
 
-# artifact name
+
+
+# OBJECTS
+
+# obj files corresponding to sources
+OBJ_LIST=$(patsubst %.$(S_EXT),$(OBJ_DIR)/%.$(O_EXT),$(SRC))
+
+
+
+# EXECUTABLES
 EXEC=fancywork
 TEST_EXEC=test/fancywork_test
 
-# Build targets
 
+# =================
+# = BUILD TARGETS =
+# =================
 all: $(EXEC)
 
 $(EXEC): $(OBJ_LIST)
@@ -48,7 +87,10 @@ $(OBJ_DIR)/%.$(O_EXT): $(SRC_DIR)/%.$(S_EXT)
 	$(call mkdir,$(dir $@))
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-# Test targets
+
+# ================
+# = TEST TARGETS =
+# ================
 .PHONY: test
 test: all
 	@ cd test; make
@@ -57,8 +99,10 @@ test: all
 clean_test:
 	@ cd test; make mrproper
 
-# Clear targets
 
+# =================
+# = CLEAN TARGETS =
+# =================
 .PHONY: clean mrproper rebuild
 
 clean:
