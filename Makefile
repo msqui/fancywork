@@ -1,12 +1,17 @@
 # Variable definitions
 
+# library paths
+BOOST_PATH=/usr/local/src/boost_1_42_0
+BOOST_INC_PATH=$(BOOST_PATH)
+BOOST_LIB_PATH=$(BOOST_PATH)/stage/lib
+
 # compiler attributes
 CC=g++
 CFLAGS=-W -Wall -pthread `Magick++-config --cppflags`\
-				-I/usr/local/boost/include/
-				
+				-I$(BOOST_INC_PATH)
+
 LDFLAGS=`Magick++-config --ldflags --libs`\
-				-L/usr/local/boost/lib
+				-L$(BOOST_LIB_PATH)
 
 # extensions
 S_EXT=cpp
