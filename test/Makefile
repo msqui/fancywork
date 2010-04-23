@@ -20,12 +20,9 @@ OTHER_TEST_SRC=sample_test.hpp
 TEST_SRC=$(CLASS_TEST_SRC) $(OTHER_TEST_SRC)
 TEST_SRC_LIST=$(patsubst %,$(SRC_DIR)/%,$(TEST_SRC))
 
-OBJ_LIST=$(patsubst %.hpp,../obj/%.o,$(CLASS_TEST_SRC))
-
-# OBJ=util/Messages.o\
-# 		fancy/Image.o\
-# 		fancy/IMagickImage.o
-# OBJ_LIST=$(patsubst %,../obj/%,$(OBJ))
+CLASS_OBJ_LIST=$(patsubst %.hpp,../obj/%.o,$(CLASS_TEST_SRC))
+OTHER_OBJ_LIST=
+OBJ_LIST=$(CLASS_OBJ_LIST) $(OTHER_OBJ_LIST)
 
 EXEC=fancywork_test
 
