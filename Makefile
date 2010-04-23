@@ -55,7 +55,7 @@ $(OBJ_DIR)/%.$(O_EXT): $(SRC_DIR)/%.$(S_EXT)
 
 # Clear targets
 
-.PHONY: clean mrproper
+.PHONY: clean mrproper rebuild
 
 clean:
 	$(RM) $(OBJ_DIR)
@@ -63,3 +63,4 @@ clean:
 mrproper: clean
 	$(RM) $(BIN_DIR)
 
+rebuild: mrproper all
