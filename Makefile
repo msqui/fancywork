@@ -17,6 +17,7 @@ CC=g++
 
 # compilation flags
 CFLAGS=-W -Wall -pthread \
+			-I$(CURDIR)/$(SRC_DIR) \
 			`Magick++-config --cppflags`
 
 # linking flags
@@ -27,6 +28,7 @@ LDFLAGS=`Magick++-config --ldflags --libs`
 # = file extensions =
 # ===================
 S_EXT=cpp
+H_EXT=h
 O_EXT=o
 
 
@@ -52,10 +54,21 @@ RM=rm -rf
 # SOURCES
 
 # source files list
-SRC=main.cpp\
+COMMON_SRC=\
+		main.cpp\
+
+CLASS_SRC=\
 		util/Messages.cpp\
+		types/Color.cpp\
+		types/Symbol.cpp\
+		types/Correspondence.cpp\
+		config/Config.cpp\
+		config/FileConfig.cpp\
+		config/TransformationTable.cpp\
 		fancy/Image.cpp\
 		fancy/IMagickImage.cpp
+
+SRC=$(COMMON_SRC) $(CLASS_SRC)
 
 # sources with dirs
 SRC_LIST=$(patsubst %,$(SRC_DIR)/%,$(SRC))
@@ -83,7 +96,11 @@ $(EXEC): $(OBJ_LIST)
 	$(call mkdir,$(BIN_DIR))
 	$(CC) $^ -o $(BIN_DIR)/$(EXEC) $(LDFLAGS)
 
-$(OBJ_DIR)/%.$(O_EXT): $(SRC_DIR)/%.$(S_EXT)
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
+	$(call mkdir,$(dir $@))
+	$(CC) -c $< -o $@ $(CFLAGS)
+
+$(OBJ_DIR)/%.$(O_EXT): $(SRC_DIR)/%.$(S_EXT) $(SRC_DIR)/%.$(H_EXT)
 	$(call mkdir,$(dir $@))
 	$(CC) -c $< -o $@ $(CFLAGS)
 
