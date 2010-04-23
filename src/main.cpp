@@ -11,7 +11,7 @@ int main (int argc, char const* argv[])
 {
 	if (argc < 2)
 	{
-		util::Messages::usage();
+		std::cerr << util::Messages::usage() << std::endl;
 		return EXIT_FAILURE;
 	}
 	

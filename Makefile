@@ -39,7 +39,7 @@ OBJ_LIST=$(patsubst %,$(OBJ_DIR)/%,$(OBJ))
 
 # artifact name
 EXEC=fancywork
-
+TEST_EXEC=test/fancywork_test
 
 # Build targets
 
@@ -52,6 +52,15 @@ $(EXEC): $(OBJ_LIST)
 $(OBJ_DIR)/%.$(O_EXT): $(SRC_DIR)/%.$(S_EXT)
 	$(call mkdir,$(dir $@))
 	$(CC) -c $< -o $@ $(CFLAGS)
+
+# Test targets
+.PHONY: test
+test: all
+	@ cd test; make
+	@ $(TEST_EXEC)
+
+clean_test:
+	@ cd test; make mrproper
 
 # Clear targets
 

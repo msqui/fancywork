@@ -1,13 +1,11 @@
 #include "Messages.h"
 
-#include <iostream>
-
 namespace fw {
 namespace util {
 
-void Messages::usage()
+std::string Messages::usage()
 {
-	std::cout << "Usage: fancywork <filename>" << std::endl;
+	return "Usage: fancywork <filename>";
 }
 
 }}

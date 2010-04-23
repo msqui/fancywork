@@ -8,6 +8,10 @@ bin
 obj
 *.o
 
+test/obj
+test/*.o
+test/fancywork_test
+
 # temp files
 tmp
 *.tmp
