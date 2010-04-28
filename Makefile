@@ -23,6 +23,9 @@ CFLAGS=-W -Wall -pthread \
 # linking flags
 LDFLAGS=`Magick++-config --ldflags --libs`
 
+# library making flags
+LIBFLAGS=
+
 
 # ===================
 # = file extensions =
@@ -38,6 +41,7 @@ O_EXT=o
 SRC_DIR=src
 OBJ_DIR=obj
 BIN_DIR=bin
+LIB_DIR=lib
 
 
 # ==================
@@ -62,8 +66,6 @@ CLASS_SRC=\
 		types/Color.cpp\
 		types/Symbol.cpp\
 		types/Correspondence.cpp\
-		config/Config.cpp\
-		config/FileConfig.cpp\
 		config/TransformationTable.cpp\
 		fancy/Image.cpp\
 		fancy/IMagickImage.cpp
@@ -77,13 +79,17 @@ SRC_LIST=$(patsubst %,$(SRC_DIR)/%,$(SRC))
 
 # OBJECTS
 
+# common obj files
+COMMON_OBJ_LIST=$(patsubst %.$(S_EXT),$(OBJ_DIR)/%.$(O_EXT),$(COMMON_SRC))
+
 # obj files corresponding to sources
-OBJ_LIST=$(patsubst %.$(S_EXT),$(OBJ_DIR)/%.$(O_EXT),$(SRC))
+OBJ_LIST=$(patsubst %.$(S_EXT),$(OBJ_DIR)/%.$(O_EXT),$(CLASS_SRC))
 
 
 
 # EXECUTABLES
 EXEC=fancywork
+LIB_EXEC=libfancywork.a
 TEST_EXEC=test/fancywork_test
 
 
@@ -92,9 +98,16 @@ TEST_EXEC=test/fancywork_test
 # =================
 all: $(EXEC)
 
-$(EXEC): $(OBJ_LIST)
+lib: $(LIB_EXEC)
+
+$(EXEC): $(COMMON_OBJ_LIST) $(OBJ_LIST)
 	$(call mkdir,$(BIN_DIR))
 	$(CC) $^ -o $(BIN_DIR)/$(EXEC) $(LDFLAGS)
+
+$(LIB_EXEC): $(OBJ_LIST)
+	$(call mkdir,$(LIB_DIR))
+	ar rcs $(LIB_DIR)/$(LIB_EXEC) $^
+	# $(CC) $^ -o $(LIB_DIR)/$(LIB_EXEC) $(LIBFLAGS) $(LDFLAGS)
 
 $(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp
 	$(call mkdir,$(dir $@))
@@ -109,7 +122,7 @@ $(OBJ_DIR)/%.$(O_EXT): $(SRC_DIR)/%.$(S_EXT) $(SRC_DIR)/%.$(H_EXT)
 # = TEST TARGETS =
 # ================
 .PHONY: test
-test: all
+test: lib
 	@ cd test; make
 	@ $(TEST_EXEC)
 
@@ -127,5 +140,6 @@ clean:
 
 mrproper: clean
 	$(RM) $(BIN_DIR)
+	$(RM) $(LIB_DIR)
 
 rebuild: mrproper all

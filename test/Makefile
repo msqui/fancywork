@@ -16,11 +16,12 @@
 CC=g++
 
 # compilation flags
-CFLAGS=-W -Wall -I$(CURDIR)/../ \
+CFLAGS=-W -Wall -I$(CURDIR)/../ -I$(CURDIR)/../src \
 			`Magick++-config --cppflags`
 
 # linking flags
 LDFLAGS=-lgtest \
+			-L../lib -lfancywork \
 			`Magick++-config --ldflags --libs`
 
 
@@ -48,6 +49,7 @@ RM=rm -rf
 
 # Tests corresponding to classes
 CLASS_TEST_SRC=util/Messages.hpp \
+					config/TransformationTable.hpp \
 					fancy/Image.hpp \
 					fancy/IMagickImage.hpp
 
@@ -85,8 +87,9 @@ EXEC=fancywork_test
 # =================
 all: $(EXEC)
 
-$(EXEC): $(OBJ_DIR)/test_main.o $(OBJ_LIST)
-	$(CC) $^ -o $(EXEC) $(LDFLAGS)
+# $(EXEC): $(OBJ_DIR)/test_main.o $(OBJ_LIST)
+$(EXEC): $(OBJ_DIR)/test_main.o ../lib/libfancywork.a
+	$(CC) $< -o $(EXEC) $(LDFLAGS)
 
 $(OBJ_DIR)/test_main.o: $(SRC_DIR)/main.cpp $(TEST_SRC_LIST)
 	$(call mkdir,$(OBJ_DIR))

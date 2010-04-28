@@ -6,7 +6,9 @@ syntax:glob
 # Build artifacts
 bin
 obj
+lib
 *.o
+*.a
 
 test/obj
 test/*.o

@@ -4,6 +4,7 @@
 #include "util/Messages.h"
 #include "fancy/IMagickImage.h"
 
+#include "config/TransformationTable.h"
 
 using namespace fw;
 
@@ -16,6 +17,7 @@ int main (int argc, char const* argv[])
 	}
 	
 	std::string filename = argv[1];
+	/*
 	try
 	{
 		fancy::Image::ImagePtrT myImg = 
@@ -35,7 +37,11 @@ int main (int argc, char const* argv[])
 		std::cout << "Unhandled exception!" << std::endl;
 		return EXIT_FAILURE;
 	}
+	*/
 	
+	config::TransformationTable::TransformationTablePtrT tt = 
+		config::TransformationTable::create(argv[1]);
+		
 	return EXIT_SUCCESS;
 }
 

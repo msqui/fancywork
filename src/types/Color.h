@@ -12,6 +12,7 @@ class Color
 public:
 	Color();
 	Color(unsigned int r, unsigned int g, unsigned int b);
+	Color(const std::string& str, const std::string& delimiter = ",");
 	
 	std::ostream& to_stream(std::ostream& ostr) const;
 	std::string str() const;

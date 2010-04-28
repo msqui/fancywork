@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "src/fancy/Image.h"
+#include "fancy/Image.h"
 
 namespace {
 

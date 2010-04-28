@@ -1,8 +1,6 @@
 #ifndef __TRANSFORMATIONTABLE_H__
 #define __TRANSFORMATIONTABLE_H__
 
-#include "FileConfig.h"
-
 #include <string>
 #include <map>
 #include <iostream>
@@ -16,14 +14,19 @@
 namespace fw {
 namespace config {
 
-class TransformationTable : public FileConfig
+class TransformationTable : private boost::noncopyable
 {
 public:
 	typedef boost::shared_ptr<TransformationTable> TransformationTablePtrT;
 	
 	static TransformationTablePtrT create(const std::string& filename);
 	
+	void read(const std::string& filename);
+	
+	void add(const std::string& str, const std::string& delimiter = ":");
 	void add(const fw::types::Correspondence& corr);
+	
+	fw::types::Symbol find(const fw::types::Color& color);
 	
 	std::ostream& to_stream(std::ostream& ostr) const;
 	std::string str() const;
@@ -31,7 +34,7 @@ public:
 	friend std::ostream& operator<< (std::ostream& ostr, const TransformationTable& tt);
 	
 private:
-	TransformationTable(const std::string& filename);
+	explicit TransformationTable(const std::string& filename);
 	
 	typedef std::map<fw::types::Color, fw::types::Symbol> SymbolMapT;
 	SymbolMapT _table;

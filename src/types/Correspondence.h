@@ -15,6 +15,7 @@ public:
 	typedef std::pair<Color, Symbol> CSPairT;
 
 	Correspondence(const Color& color, const Symbol& symbol);
+	Correspondence(const std::string& color, const std::string& symbol);
 	
 	CSPairT pair() const;
 	

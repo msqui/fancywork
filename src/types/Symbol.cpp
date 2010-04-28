@@ -22,4 +22,14 @@ std::ostream& operator<< (std::ostream& ostr, const Symbol& symbol)
 	return ostr;
 }
 
+bool operator== (const Symbol& s1, const Symbol& s2)
+{
+	return s1._symbol == s2._symbol;
+}
+
+
+NoSymbol::NoSymbol() :
+	Symbol("NONE")
+{}
+
 }}

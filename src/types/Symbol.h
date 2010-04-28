@@ -16,9 +16,18 @@ public:
 	std::string str() const;
 
 	friend std::ostream& operator<< (std::ostream& ostr, const Symbol& symbol);
+	friend bool operator== (const Symbol& s1, const Symbol& s2);
 	
 private:
 	std::string _symbol;
+};
+
+
+
+class NoSymbol : public Symbol
+{
+public:
+	NoSymbol();
 };
 
 }}

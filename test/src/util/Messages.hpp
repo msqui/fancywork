@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "src/util/Messages.h"
+#include "util/Messages.h"
 
 using namespace fw;
 
