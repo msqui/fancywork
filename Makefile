@@ -21,7 +21,8 @@ CFLAGS=-W -Wall -pthread \
 			`Magick++-config --cppflags`
 
 # linking flags
-LDFLAGS=`Magick++-config --ldflags --libs`
+LDFLAGS=`Magick++-config --ldflags --libs` \
+				-lboost_program_options
 
 # library making flags
 LIBFLAGS=

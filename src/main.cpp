@@ -1,6 +1,9 @@
 #include <cstdlib>
 #include <iostream>
 
+#include <boost/program_options.hpp>
+namespace po = boost::program_options;
+
 #include "util/Messages.h"
 #include "fancy/IMagickImage.h"
 
@@ -8,15 +11,31 @@
 
 using namespace fw;
 
-int main (int argc, char const* argv[])
+int main (int argc, char* argv[])
 {
-	if (argc < 2)
+	std::string filename;
+	
+	po::options_description desc("Options");
+	desc.add_options()
+		("help,h", "produce help message")
+		("filename,f", po::value<std::string>(&filename), "set file to process")
+		;
+	po::variables_map vm;
+	po::store(po::parse_command_line(argc, argv, desc), vm);
+	po::notify(vm);
+	
+	if(vm.count("help"))
 	{
-		std::cerr << util::Messages::usage() << std::endl;
+		std::cout << desc << std::endl;
 		return EXIT_FAILURE;
 	}
 	
-	std::string filename = argv[1];
+	if(!vm.count("filename"))
+	{
+		std::cout << desc << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	/*
 	try
 	{
@@ -40,7 +59,7 @@ int main (int argc, char const* argv[])
 	*/
 	
 	config::TransformationTable::TransformationTablePtrT tt = 
-		config::TransformationTable::create(argv[1]);
+		config::TransformationTable::create(filename);
 		
 	return EXIT_SUCCESS;
 }
