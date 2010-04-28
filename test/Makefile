@@ -48,7 +48,7 @@ RM=rm -rf
 # SOURCES
 
 # Tests corresponding to classes
-CLASS_TEST_SRC=util/Messages.hpp \
+CLASS_TEST_SRC=\
 					util/File.hpp\
 					config/TransformationTable.hpp \
 					fancy/Image.hpp \

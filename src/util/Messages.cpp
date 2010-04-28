@@ -3,10 +3,11 @@
 namespace fw {
 namespace util {
 
-std::string Messages::usage()
-{
-	return "Usage: fancywork <filename>";
-}
+const std::string Messages::usage =
+	"Usage: \n\tfancywork [OPTIONS] <input files>";
+
+const std::string Messages::no_files_to_process =
+	"No input files to process!\nNow exiting";
 
 }}
 

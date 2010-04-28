@@ -9,7 +9,8 @@ namespace util {
 class Messages
 {
 public:
-	static std::string usage();	
+	static const std::string usage;	
+	static const std::string no_files_to_process;
 	
 private:
 	Messages ();
