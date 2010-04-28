@@ -49,6 +49,7 @@ RM=rm -rf
 
 # Tests corresponding to classes
 CLASS_TEST_SRC=util/Messages.hpp \
+					util/File.hpp\
 					config/TransformationTable.hpp \
 					fancy/Image.hpp \
 					fancy/IMagickImage.hpp

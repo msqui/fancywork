@@ -1,17 +1,18 @@
 #include "TransformationTable.h"
 
 #include <sstream>
-#include <fstream>
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+
+#include "util/File.h"
 
 namespace fw {
 namespace config {
 
 TransformationTable::TransformationTable(const std::string& filename)
 {
-	read(filename);
+	append(filename);
 }
 
 TransformationTable::TransformationTablePtrT
@@ -22,17 +23,22 @@ TransformationTable::create(const std::string& filename)
 
 void TransformationTable::read(const std::string& filename)
 {
-	std::ifstream fs;
-	fs.open(filename.c_str(), std::ios::in);
+	_table.clear();
+	append(filename);
+}
+
+void TransformationTable::append(const std::string& filename)
+{
+	fw::util::File::FilePtrT f = fw::util::File::create();
+	f->open_in(filename);
 	
 	std::string line;
-	while(!fs.eof())
+	while(f->getline(line))
 	{
-		std::getline(fs, line);
 		add(line);
 	}
 	
-	fs.close();
+	f->close();
 }
 
 void TransformationTable::add(const std::string& str, const std::string& delimiter)

@@ -22,6 +22,7 @@ public:
 	static TransformationTablePtrT create(const std::string& filename);
 	
 	void read(const std::string& filename);
+	void append(const std::string& filename);
 	
 	void add(const std::string& str, const std::string& delimiter = ":");
 	void add(const fw::types::Correspondence& corr);
