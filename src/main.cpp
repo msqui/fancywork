@@ -24,16 +24,31 @@ int main (int argc, char* argv[])
 	FilenameT tt_filename;
 	FilenamesVecT input_files;
 	
+	unsigned int num_colors;
+	
 	try
 	{
-		po::options_description desc("Options");
-		desc.add_options()
-			("help,h", "produce help message")
+		po::options_description main_desc("Mandatory params");
+		main_desc.add_options()
+			("input-file,i", po::value<FilenamesVecT>(&input_files), "input image file")
+		;
+
+		po::options_description opt_desc("Optional params");
+		opt_desc.add_options()
+			("colors,c", po::value<unsigned int>(&num_colors)->default_value(16), "number of colors")
 			("transformation-table,t", po::value<FilenameT>(&tt_filename), 
 								"file containing the table of color-symbol correspondence")
-			("input-file,i", po::value<FilenamesVecT>(&input_files), "input image file")
-			;
-		
+		;
+			
+		po::options_description help_desc("Help");
+		help_desc.add_options()
+			("help,h", "produce help message")
+			("version,v", "display program version")
+		;
+			
+		po::options_description desc("");
+		desc.add(main_desc).add(opt_desc).add(help_desc);
+				
 		po::positional_options_description p;
 		p.add("input-file", -1);
 		
@@ -47,12 +62,12 @@ int main (int argc, char* argv[])
 			usage(util::Messages::usage, desc);
 			return EXIT_FAILURE;
 		}
-	
-		if(!vm.count("transformation-table"))
+		if(vm.count("version"))
 		{
-			usage(util::Messages::usage, desc);
+			std::cout << util::Messages::version << std::endl;
 			return EXIT_FAILURE;
 		}
+	
 		if (!vm.count("input-file"))
 		{
 			std::cout << util::Messages::no_files_to_process << std::endl;
@@ -72,8 +87,11 @@ int main (int argc, char* argv[])
 	
 	
 	// Parse Transformation table
-	config::TransformationTable::TransformationTablePtrT tt = 
-		config::TransformationTable::create(tt_filename);
+	if(!tt_filename.empty())
+	{
+		config::TransformationTable::TransformationTablePtrT tt = 
+			config::TransformationTable::create(tt_filename);
+	}
 
 	// Process images
 	try
@@ -108,7 +126,6 @@ void usage(const std::string& message, const po::options_description& desc)
 {
 	std::cout << std::endl
 						<< message 
-						<< std::endl
 						<< std::endl;
 	
 	std::cout << desc << std::endl;
