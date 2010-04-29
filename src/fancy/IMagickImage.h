@@ -9,6 +9,8 @@
 
 #include <Magick++.h>
 
+#include "types/Color.h"
+
 namespace fw {
 namespace fancy {
 
@@ -24,10 +26,17 @@ public:
 	unsigned int width() const;
 	unsigned int height() const;
 	
-private:
-	Magick::Image _img;
+	void process(unsigned int num_colors, 
+								unsigned int square_side, 
+								const Image::TTPtrT& ttPtr,
+								const std::string& suffix);
 
+	Magick::Color process_element(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1);
+	
+private:
 	IMagickImage(const std::string& filename);
+	
+	Magick::Image _img;
 };
 
 }}

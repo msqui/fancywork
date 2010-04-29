@@ -10,14 +10,19 @@ namespace po = boost::program_options;
 #include "util/Messages.h"
 #include "fancy/IMagickImage.h"
 
+#include "types/common/NullPtr.h"
 #include "config/TransformationTable.h"
 
 using namespace fw;
 
+// Usage help message
 void usage(const std::string& message, const po::options_description& desc);
 
 int main (int argc, char* argv[])
 {
+	// ==================
+	// = Config options =
+	// ==================
 	typedef std::string FilenameT;
 	typedef std::vector<FilenameT> FilenamesVecT;
 	
@@ -25,7 +30,16 @@ int main (int argc, char* argv[])
 	FilenamesVecT input_files;
 	
 	unsigned int num_colors;
+	unsigned int square_side;
 	
+	// =============
+	// = Variables =
+	// =============
+	config::TransformationTable::TransformationTablePtrT tt = nullPtr;
+	
+	// ===========================
+	// = Command line processing =
+	// ===========================
 	try
 	{
 		po::options_description main_desc("Mandatory params");
@@ -35,6 +49,7 @@ int main (int argc, char* argv[])
 
 		po::options_description opt_desc("Optional params");
 		opt_desc.add_options()
+			("side,s", po::value<unsigned int>(&square_side)->default_value(5), "fancy square side")
 			("colors,c", po::value<unsigned int>(&num_colors)->default_value(16), "number of colors")
 			("transformation-table,t", po::value<FilenameT>(&tt_filename), 
 								"file containing the table of color-symbol correspondence")
@@ -86,14 +101,17 @@ int main (int argc, char* argv[])
 	}
 	
 	
-	// Parse Transformation table
+	// ===================================
+	// = Transformation table processing =
+	// ===================================
 	if(!tt_filename.empty())
 	{
-		config::TransformationTable::TransformationTablePtrT tt = 
-			config::TransformationTable::create(tt_filename);
+		tt = config::TransformationTable::create(tt_filename);
 	}
 
-	// Process images
+	// =====================
+	// = Images processing =
+	// =====================
 	try
 	{
 		for(FilenamesVecT::const_iterator it = input_files.begin();
@@ -106,6 +124,8 @@ int main (int argc, char* argv[])
 			std::cout << myImg->filename() << " has:" << std::endl;
 			std::cout << myImg->width() << " columns" << std::endl;
 			std::cout << myImg->height() << " rows" << std::endl;
+			
+			myImg->process(num_colors, square_side, tt);
 		}
 	}
 	catch(Magick::Error& e)
@@ -122,6 +142,10 @@ int main (int argc, char* argv[])
 	return EXIT_SUCCESS;
 }
 
+
+// ======================
+// = Usage help message =
+// ======================
 void usage(const std::string& message, const po::options_description& desc)
 {
 	std::cout << std::endl

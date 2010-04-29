@@ -65,6 +65,7 @@ COMMON_SRC=\
 CLASS_SRC=\
 		util/Messages.cpp\
 		util/File.cpp\
+		types/common/NullPtr.cpp\
 		types/Color.cpp\
 		types/Symbol.cpp\
 		types/Correspondence.cpp\

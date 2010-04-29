@@ -4,6 +4,9 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
+#include "config/TransformationTable.h"
+#include "types/common/NullPtr.h"
+
 namespace fw {
 namespace fancy {
 
@@ -11,6 +14,7 @@ class Image
 {
 public:
 	typedef boost::shared_ptr<Image> ImagePtrT;
+	typedef fw::config::TransformationTable::TransformationTablePtrT TTPtrT;
 	
 	template <typename CreatorT>
 	static ImagePtrT create(const std::string& filename)
@@ -24,6 +28,11 @@ public:
 
 	virtual unsigned int width() const = 0;
 	virtual unsigned int height() const = 0;
+	
+	virtual void process(unsigned int num_colors, 
+												unsigned int square_side, 
+												const TTPtrT& ttPtr = nullPtr,
+												const std::string& suffix = "fancy") = 0;
 	
 protected:
 	Image (const std::string& filename);
