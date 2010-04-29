@@ -67,6 +67,8 @@ CLASS_SRC=\
 		util/File.cpp\
 		types/common/NullPtr.cpp\
 		types/Color.cpp\
+		types/MagickColor.cpp\
+		types/ColorTable.cpp\
 		types/Symbol.cpp\
 		types/Correspondence.cpp\
 		config/TransformationTable.cpp\

@@ -40,6 +40,9 @@ Color::Color(const std::string& str, const std::string& delimiter)
 	}
 }
 
+Color::~Color()
+{}
+
 std::ostream& Color::to_stream(std::ostream& ostr) const
 {
 	ostr << "(" << _r << ";" << _g << ";" << _b << ")";

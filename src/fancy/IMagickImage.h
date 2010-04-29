@@ -33,6 +33,8 @@ public:
 
 	Magick::Color process_element(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1);
 	
+	// static std::vector<Magick::Color> getColors(unsigned int num_colors, unsigned int max_color);
+	
 private:
 	IMagickImage(const std::string& filename);
 	

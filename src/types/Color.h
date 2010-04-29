@@ -14,6 +14,8 @@ public:
 	Color(unsigned int r, unsigned int g, unsigned int b);
 	Color(const std::string& str, const std::string& delimiter = ",");
 	
+	~Color();
+	
 	std::ostream& to_stream(std::ostream& ostr) const;
 	std::string str() const;
 	
