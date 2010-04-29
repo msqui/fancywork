@@ -16,6 +16,7 @@ test/fancywork_test
 
 # temp files
 tmp
+.DS_Store
 *.tmp
 *~
 
