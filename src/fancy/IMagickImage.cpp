@@ -8,6 +8,9 @@
 #include "types/MagickColor.h"
 #include "types/ColorTable.h"
 
+#include <map>
+#include <fstream>
+
 namespace fw {
 namespace fancy {
 
@@ -94,6 +97,10 @@ void IMagickImage::process(unsigned int num_colors,
 	
 	// std::cout << "Table: " << color_table.str() << std::endl;
 	
+	
+	// =======================
+	// = Save modified image =
+	// =======================
 	for(unsigned int y = 0; y < new_image.rows(); ++y)
 	{
 		for(unsigned int x = 0; x < new_image.columns(); ++x)
@@ -103,6 +110,45 @@ void IMagickImage::process(unsigned int num_colors,
 	}
 	
 	new_image.write(_filename + "_" + suffix + "." + _img.magick());
+	
+	
+	// =============
+	// = Save text =
+	// =============
+	
+	std::string letters = " abcdefghijklmnopqrstuvwxyz";
+	size_t curr_letter_ind = 0;
+	std::string curr_letter;
+	std::map<fw::types::MagickColor, std::string> color_letter;
+	std::map<fw::types::MagickColor, std::string>::const_iterator it;
+	fw::types::MagickColor curr_color;
+	
+	std::string line = "";
+	for(unsigned int y = 0; y < v_steps_cnt; ++y)
+	{
+		for(unsigned int x = 0; x < h_steps_cnt; ++x)
+		{
+			curr_color = new_image.pixelColor(x * h_step, y * v_step);
+			it = color_letter.find(curr_color);
+			if(it == color_letter.end())
+			{
+				++curr_letter_ind;
+				curr_letter = letters[curr_letter_ind];
+				color_letter.insert(std::make_pair(curr_color, curr_letter));
+			}
+			else
+			{
+				curr_letter = it->second;
+			}
+			line += curr_letter + " ";
+		}
+		line += "\n";
+	}
+	
+	std::ofstream fs;
+	fs.open("test.file.txt");
+	fs << line;
+	fs.close();
 }
 
 Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0, 
