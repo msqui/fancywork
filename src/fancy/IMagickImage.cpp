@@ -7,6 +7,7 @@
 #include "types/Color.h"
 #include "types/MagickColor.h"
 #include "types/ColorTable.h"
+#include "types/ColorSymbolTable.h"
 
 #include <map>
 #include <fstream>
@@ -116,11 +117,13 @@ void IMagickImage::process(unsigned int num_colors,
 	// = Save text =
 	// =============
 	
-	std::string letters = " abcdefghijklmnopqrstuvwxyz";
-	size_t curr_letter_ind = 0;
-	std::string curr_letter;
-	std::map<fw::types::MagickColor, std::string> color_letter;
-	std::map<fw::types::MagickColor, std::string>::const_iterator it;
+	// std::string letters = " abcdefghijklmnopqrstuvwxyz";
+	// size_t curr_letter_ind = 0;
+	// std::string curr_letter;
+	// std::map<fw::types::MagickColor, std::string> color_letter;
+	// std::map<fw::types::MagickColor, std::string>::const_iterator it;
+	
+	fw::types::ColorSymbolTable color_letter(color_table.used_colors());
 	fw::types::MagickColor curr_color;
 	
 	std::string line = "";
@@ -128,27 +131,46 @@ void IMagickImage::process(unsigned int num_colors,
 	{
 		for(unsigned int x = 0; x < h_steps_cnt; ++x)
 		{
+			// curr_color = new_image.pixelColor(x * h_step, y * v_step);
+			// it = color_letter.find(curr_color);
+			// if(it != color_letter.end())
+			// {
+			// 	line += it->second;
+			// }
 			curr_color = new_image.pixelColor(x * h_step, y * v_step);
-			it = color_letter.find(curr_color);
-			if(it == color_letter.end())
-			{
-				++curr_letter_ind;
-				curr_letter = letters[curr_letter_ind];
-				color_letter.insert(std::make_pair(curr_color, curr_letter));
-			}
-			else
-			{
-				curr_letter = it->second;
-			}
-			line += curr_letter + " ";
+			line += color_letter.get(curr_color);
+			line += " ";
 		}
 		line += "\n";
 	}
 	
 	std::ofstream fs;
 	fs.open("test.file.txt");
-	fs << line;
+	fs << line << "\n";
+	fs << "Legend:\n" << color_letter.legend();
 	fs.close();
+	
+	
+	// ===================
+	// = Legend in image =
+	// ===================
+	Magick::Image img_legend(Magick::Geometry(300, color_letter.size() * 220),
+														Magick::Color("white"));
+	std::list<Magick::Drawable> objects_to_draw;
+	objects_to_draw.push_back(Magick::DrawableStrokeColor(Magick::Color("black")));
+	objects_to_draw.push_back(Magick::DrawableFont("-*-helvetica-medium-r-normal-*-*-300-*-*-*-*-iso8859-1"));
+	fw::types::ColorSymbolTable::ColorSymbolColT::const_iterator it = color_letter.table().begin();
+	size_t i = 0;
+	for(; it != color_letter.table().end(); ++it, ++i)
+	{
+		objects_to_draw.push_back(Magick::DrawableFillColor(fw::types::MagickColor(it->first)));
+		objects_to_draw.push_back(Magick::DrawableRectangle(10, i * 200 + 10, 280, (i + 1) * 200));
+		objects_to_draw.push_back(Magick::DrawableFillColor(Magick::Color("black")));
+		objects_to_draw.push_back(Magick::DrawableText(130, i * 200 + 100 + 10, it->second));
+	}
+	img_legend.draw(objects_to_draw);
+	img_legend.magick("JPEG");
+	img_legend.write("legend.jpeg");
 }
 
 Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0, 

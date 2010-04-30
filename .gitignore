@@ -22,4 +22,9 @@ tmp
 
 # image files
 img
+*.png
+*.jpg
+*.jpeg
 
+# text files
+*.txt

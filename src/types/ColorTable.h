@@ -2,7 +2,7 @@
 #define __COLORTABLE_H__
 
 #include <map>
-
+#include <set>
 #include <string>
 
 #include "Color.h"
@@ -15,6 +15,7 @@ class ColorTable
 public:
 	typedef std::map<Color, Color> ColorColT;
 	typedef std::pair<Color, Color> ColorPairT;
+	typedef std::set<Color> ColorSetT;
 	
 	ColorTable();
 	
@@ -26,12 +27,14 @@ public:
 	
 	unsigned int size() const;
 	bool contains(const Color& color) const;
-
 	
+	ColorSetT used_colors() const;
+
 	std::string str() const;
 	
 private:
 	ColorColT _table;
+	ColorSetT _used_colors;
 };
 
 }}

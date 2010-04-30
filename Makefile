@@ -69,7 +69,9 @@ CLASS_SRC=\
 		types/Color.cpp\
 		types/MagickColor.cpp\
 		types/ColorTable.cpp\
+		types/ColorSymbolTable.cpp\
 		types/Symbol.cpp\
+		types/SymbolTable.cpp\
 		types/Correspondence.cpp\
 		config/TransformationTable.cpp\
 		fancy/Image.cpp\

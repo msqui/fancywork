@@ -8,7 +8,8 @@ namespace fw {
 namespace types {
 
 ColorTable::ColorTable() :
-	_table()
+	_table(),
+	_used_colors()
 {}
 
 void ColorTable::add(const Color& color_s, const Color& color_t)
@@ -41,6 +42,7 @@ void ColorTable::reduce(unsigned int n)
 		if( (i == j) && (i <= round_size) )
 		{
 			curr_color = it->second;
+			_used_colors.insert(curr_color);
 			j += step;
 		} else
 		{
@@ -74,6 +76,11 @@ bool ColorTable::contains(const Color& color) const
 	return _table.find(color) == _table.end();
 }
 
+ColorTable::ColorSetT
+ColorTable::used_colors() const
+{
+	return _used_colors;
+}
 
 std::string ColorTable::str() const
 {
