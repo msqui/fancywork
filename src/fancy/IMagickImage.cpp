@@ -30,17 +30,67 @@ IMagickImage::create(const std::string& filename)
 void IMagickImage::open(const std::string& filename)
 {
 	_img.read(filename);
+	
+	_width = _img.columns();
+	_height = _img.rows();
 }
 
-unsigned int IMagickImage::width() const
+void IMagickImage::process_2(size_t num_colors,
+															size_t square_side,
+															const Image::TTPtrT& ttPtr,
+															const std::string& suffix)
 {
-	return _img.columns();
+	// =================
+	// = Process image =
+	// =================
+	
+	// resize image
+	size_t width = this->width();
+	size_t height = this->height();
+	Magick::Image new_img(_img);
+	
+	double factor = (width > height)	? static_cast<double>(square_side) / width
+																		: static_cast<double>(square_side) / height;
+																		
+	// std::cout << "width = " << width << std::endl;
+	// std::cout << "square_side = " << square_side << std::endl;
+	// std::cout << "factor = " << factor << std::endl;
+	// return;
+	
+	new_img.zoom(Magick::Geometry(width * factor, width * factor));
+	size_t new_width = new_img.columns();
+	size_t new_height = new_img.rows();
+	
+	// analyze image colors
+	fw::types::ColorTable color_table;
+	Magick::Color color;
+	for(size_t y = 0; y < new_height; ++y)
+	{
+		for(size_t x = 0; x < new_width; ++x)
+		{
+			color = new_img.pixelColor(x,y);
+			color_table.add(fw::types::MagickColor(color), fw::types::MagickColor(color));
+		}
+	}
+	
+	// process color table
+	color_table.reduce(num_colors);
+	
+	// =======================
+	// = Save modified image =
+	// =======================
+	for(size_t y = 0; y < new_height; ++y)
+	{
+		for(size_t x = 0; x < new_width; ++x)
+		{
+			new_img.pixelColor(x, y, fw::types::MagickColor(color_table.find(fw::types::MagickColor(new_img.pixelColor(x, y)))));
+		}
+	}
+	
+	new_img.magick("PNG");
+	new_img.write(_filename + "_" + suffix + "_2." + new_img.magick());
 }
 
-unsigned int IMagickImage::height() const
-{
-	return _img.rows();
-}
 
 void IMagickImage::process(unsigned int num_colors, 
 														unsigned int square_side, 
@@ -110,7 +160,7 @@ void IMagickImage::process(unsigned int num_colors,
 		}
 	}
 	
-	new_image.write(_filename + "_" + suffix + "." + _img.magick());
+	new_image.write(_filename + "_" + suffix + "_1." + _img.magick());
 	
 	
 	// =============

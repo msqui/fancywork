@@ -22,7 +22,8 @@ CFLAGS=-W -Wall -pthread \
 
 # linking flags
 LDFLAGS=`Magick++-config --ldflags --libs` \
-				-lboost_program_options
+				-lboost_program_options \
+				-ljpeg
 
 # library making flags
 LIBFLAGS=
@@ -75,7 +76,8 @@ CLASS_SRC=\
 		types/Correspondence.cpp\
 		config/TransformationTable.cpp\
 		fancy/Image.cpp\
-		fancy/IMagickImage.cpp
+		fancy/IMagickImage.cpp\
+		fancy/GILImage.cpp
 
 SRC=$(COMMON_SRC) $(CLASS_SRC)
 

@@ -23,14 +23,16 @@ public:
 	
 	void open(const std::string& filename);
 	
-	unsigned int width() const;
-	unsigned int height() const;
-	
 	void process(unsigned int num_colors, 
 								unsigned int square_side, 
 								const Image::TTPtrT& ttPtr,
 								const std::string& suffix);
-
+								
+	void process_2(size_t num_colors,
+									size_t square_side,
+									const Image::TTPtrT& ttPtr,
+									const std::string& suffix);
+									
 	Magick::Color process_element(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1);
 	
 	// static std::vector<Magick::Color> getColors(unsigned int num_colors, unsigned int max_color);

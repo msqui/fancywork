@@ -9,6 +9,7 @@ namespace po = boost::program_options;
 
 #include "util/Messages.h"
 #include "fancy/IMagickImage.h"
+#include "fancy/GILImage.h"
 
 #include "types/common/NullPtr.h"
 #include "config/TransformationTable.h"
@@ -114,17 +115,22 @@ int main (int argc, char* argv[])
 	// =====================
 	try
 	{
+		fancy::Image::ImagePtrT myImg;
 		for(FilenamesVecT::const_iterator it = input_files.begin();
 				it != input_files.end();
 				++it)
 		{
-			fancy::Image::ImagePtrT myImg = 
-					fancy::Image::create<fancy::IMagickImage>(*it);
-		
-			std::cout << myImg->filename() << " has:" << std::endl;
-			std::cout << myImg->width() << " columns" << std::endl;
-			std::cout << myImg->height() << " rows" << std::endl;
+			// fancy::Image::ImagePtrT myImg = 
+			// 		fancy::Image::create<fancy::IMagickImage>(*it);
+			// 		
+			// std::cout << myImg->filename() << " has:" << std::endl;
+			// std::cout << myImg->width() << " columns" << std::endl;
+			// std::cout << myImg->height() << " rows" << std::endl;
+			// 
+			// myImg->process(num_colors, square_side, tt);
+			// myImg->process_2(num_colors, square_side, tt);
 			
+			myImg = fancy::Image::create<fancy::GILImage>(*it);
 			myImg->process(num_colors, square_side, tt);
 		}
 	}
