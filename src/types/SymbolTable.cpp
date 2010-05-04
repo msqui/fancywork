@@ -24,10 +24,10 @@ std::string SymbolTable::operator[] (size_t n) const
 	} else
 	{
 		size_t x = static_cast<size_t>(floor(n / size));
-		ss_res << _string[n % size];
-		for(size_t i = 0; i < x; ++i)
+		char c = _string[n % size];
+		for(size_t i = 0; i <= x; ++i)
 		{
-			ss_res << ss_res;
+			ss_res << c;
 		}
 	}
 	

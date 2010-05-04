@@ -12,7 +12,6 @@ namespace po = boost::program_options;
 #include "fancy/GILImage.h"
 
 #include "types/common/NullPtr.h"
-#include "config/TransformationTable.h"
 
 using namespace fw;
 
@@ -33,11 +32,6 @@ int main (int argc, char* argv[])
 	unsigned int num_colors;
 	unsigned int square_side;
 	
-	// =============
-	// = Variables =
-	// =============
-	config::TransformationTable::TransformationTablePtrT tt = nullPtr;
-	
 	// ===========================
 	// = Command line processing =
 	// ===========================
@@ -52,8 +46,6 @@ int main (int argc, char* argv[])
 		opt_desc.add_options()
 			("side,s", po::value<unsigned int>(&square_side)->default_value(5), "fancy square side")
 			("colors,c", po::value<unsigned int>(&num_colors)->default_value(16), "number of colors")
-			("transformation-table,t", po::value<FilenameT>(&tt_filename), 
-								"file containing the table of color-symbol correspondence")
 		;
 			
 		po::options_description help_desc("Help");
@@ -102,14 +94,6 @@ int main (int argc, char* argv[])
 	}
 	
 	
-	// ===================================
-	// = Transformation table processing =
-	// ===================================
-	if(!tt_filename.empty())
-	{
-		tt = config::TransformationTable::create(tt_filename);
-	}
-
 	// =====================
 	// = Images processing =
 	// =====================
@@ -120,18 +104,17 @@ int main (int argc, char* argv[])
 				it != input_files.end();
 				++it)
 		{
-			// fancy::Image::ImagePtrT myImg = 
-			// 		fancy::Image::create<fancy::IMagickImage>(*it);
-			// 		
-			// std::cout << myImg->filename() << " has:" << std::endl;
-			// std::cout << myImg->width() << " columns" << std::endl;
-			// std::cout << myImg->height() << " rows" << std::endl;
-			// 
-			// myImg->process(num_colors, square_side, tt);
-			// myImg->process_2(num_colors, square_side, tt);
+			fancy::Image::ImagePtrT myImg = 
+					fancy::Image::create<fancy::IMagickImage>(*it);
+					
+			std::cout << myImg->filename() << " has:" << std::endl;
+			std::cout << myImg->width() << " columns" << std::endl;
+			std::cout << myImg->height() << " rows" << std::endl;
 			
-			myImg = fancy::Image::create<fancy::GILImage>(*it);
-			myImg->process(num_colors, square_side, tt);
+			myImg->process(num_colors, square_side);
+
+			// myImg = fancy::Image::create<fancy::GILImage>(*it);
+			// myImg->process(num_colors, square_side, tt);
 		}
 	}
 	catch(Magick::Error& e)

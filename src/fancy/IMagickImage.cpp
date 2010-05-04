@@ -35,63 +35,73 @@ void IMagickImage::open(const std::string& filename)
 	_height = _img.rows();
 }
 
-void IMagickImage::process_2(size_t num_colors,
+void IMagickImage::process(size_t num_colors,
 															size_t square_side,
-															const Image::TTPtrT& ttPtr,
 															const std::string& suffix)
 {
 	// =================
 	// = Process image =
 	// =================
 	
-	// resize image
-	size_t width = this->width();
-	size_t height = this->height();
+	// reduce image
+	size_t mod_width = width() / square_side;
+	size_t mod_height = height() / square_side;
 	Magick::Image new_img(_img);
 	
-	double factor = (width > height)	? static_cast<double>(square_side) / width
-																		: static_cast<double>(square_side) / height;
-																		
-	// std::cout << "width = " << width << std::endl;
-	// std::cout << "square_side = " << square_side << std::endl;
-	// std::cout << "factor = " << factor << std::endl;
-	// return;
-	
-	new_img.zoom(Magick::Geometry(width * factor, width * factor));
+	new_img.zoom(Magick::Geometry(mod_width, mod_height));
 	size_t new_width = new_img.columns();
 	size_t new_height = new_img.rows();
 	
+	// new_img.quantize();
+	
+	// ==================
+	// = Process colors =
+	// ==================
 	// analyze image colors
 	fw::types::ColorTable color_table;
 	Magick::Color color;
+	// new_img.reduceNoise();
+	new_img.quantizeColors(num_colors);
+	new_img.quantize();
 	for(size_t y = 0; y < new_height; ++y)
 	{
 		for(size_t x = 0; x < new_width; ++x)
 		{
 			color = new_img.pixelColor(x,y);
-			color_table.add(fw::types::MagickColor(color), fw::types::MagickColor(color));
+			color_table.add(fw::types::MagickColor(color));
 		}
 	}
-	
-	// process color table
-	color_table.reduce(num_colors);
 	
 	// =======================
 	// = Save modified image =
 	// =======================
-	for(size_t y = 0; y < new_height; ++y)
+	new_img.magick("PNG");
+	new_img.write(_filename + "_" + suffix + "." + new_img.magick());
+	
+	// =============
+	// = Save text =
+	// =============
+	fw::types::ColorSymbolTable color_letter(color_table.get());
+	std::string line = "";
+	for(unsigned int y = 0; y < new_height; ++y)
 	{
-		for(size_t x = 0; x < new_width; ++x)
+		for(unsigned int x = 0; x < new_width; ++x)
 		{
-			new_img.pixelColor(x, y, fw::types::MagickColor(color_table.find(fw::types::MagickColor(new_img.pixelColor(x, y)))));
+			line += color_letter.get(fw::types::MagickColor(new_img.pixelColor(x, y)));
+			line += " ";
 		}
+		line += "\n";
 	}
 	
-	new_img.magick("PNG");
-	new_img.write(_filename + "_" + suffix + "_2." + new_img.magick());
+	std::ofstream fs;
+	fs.open("test.file.txt");
+	fs << line << "\n";
+	fs << "Legend:\n" << color_letter.legend();
+	fs.close();
 }
 
 
+/*
 void IMagickImage::process(unsigned int num_colors, 
 														unsigned int square_side, 
 														const Image::TTPtrT& ttPtr,
@@ -222,6 +232,7 @@ void IMagickImage::process(unsigned int num_colors,
 	img_legend.magick("JPEG");
 	img_legend.write("legend.jpeg");
 }
+*/
 
 Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0, 
 																								unsigned int x1, unsigned int y1)

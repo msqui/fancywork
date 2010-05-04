@@ -4,6 +4,9 @@
 #include <boost/gil/extension/numeric/sampler.hpp>
 #include <boost/gil/extension/numeric/resample.hpp>
 
+#include "types/Color.h"
+#include "types/ColorTable.h"
+
 namespace fw {
 namespace fancy {
 
@@ -27,15 +30,15 @@ void GILImage::open(const std::string& filename)
 	_height = _img.height();
 }
 
-void GILImage::process(unsigned int num_colors,
-												unsigned int square_side,
-												const Image::TTPtrT& ttPtr,
+void GILImage::process(size_t num_colors,
+												size_t square_side,
 												const std::string& suffix)
 {
 	// =================
 	// = Process image =
 	// =================
 	
+	// reduce image
 	size_t new_width = width() / square_side;
 	size_t new_height = height() / square_side;
 	
@@ -43,6 +46,22 @@ void GILImage::process(unsigned int num_colors,
 	// bg::resize_view(bg::const_view(_img), bg::view(new_img), bg::nearest_neighbor_sampler());
 	bg::resize_view(bg::const_view(_img), bg::view(new_img), bg::bilinear_sampler());
 
+
+	// reduce color table
+	fw::types::ColorTable color_table;
+	fw::types::Color color;
+	bg::rgb8_view_t new_img_view = bg::view(new_img);
+	for(size_t y = 0; y < new_height; ++y)
+	{
+		bg::rgb8_view_t::x_iterator x_it = new_img_view.row_begin(y);
+		for(size_t x = 0; x < new_width; ++x)
+		{
+			// std::cout << x_it[x].red << "\t";
+		}
+		std::cout << std::endl;
+	}
+	
+	// write image
 	bg::jpeg_write_view("out-test.jpg", bg::const_view(new_img));
 	
 	// // analyze image colors
@@ -74,11 +93,5 @@ void GILImage::process(unsigned int num_colors,
 	// new_img.magick("PNG");
 	// new_img.write(_filename + "_" + suffix + "_2." + new_img.magick());
 }
-
-void GILImage::process_2(size_t num_colors,
-															size_t square_side,
-															const Image::TTPtrT& ttPtr,
-															const std::string& suffix)
-{}
 
 }}

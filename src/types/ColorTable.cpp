@@ -8,49 +8,12 @@ namespace fw {
 namespace types {
 
 ColorTable::ColorTable() :
-	_table(),
-	_used_colors()
+	_table()
 {}
 
-void ColorTable::add(const Color& color_s, const Color& color_t)
+void ColorTable::add(const Color& color)
 {
-	_table.insert(ColorPairT(color_s, color_t));
-}
-
-void ColorTable::reduce(unsigned int n)
-{
-	if(n == 0)
-	{
-		clear();
-		return;
-	}
-	
-	if(n > size()) return;
-	
-	unsigned int size = this->size();
-	unsigned int step = static_cast<unsigned int>(floor(size / n));
-	unsigned int round_size = step * n;
-	
-
-	Color curr_color;
-	unsigned int i = 0;
-	unsigned int j = 0;
-	for(ColorColT::iterator it = _table.begin();
-			it != _table.end();
-			++it)
-	{
-		if( (i == j) && (i <= round_size) )
-		{
-			curr_color = it->second;
-			_used_colors.insert(curr_color);
-			j += step;
-		} else
-		{
-			it->second = curr_color;
-		}
-		
-		++i;
-	}
+	_table.insert(color);
 }
 
 void ColorTable::clear()
@@ -60,10 +23,10 @@ void ColorTable::clear()
 
 Color ColorTable::find(const Color& color)
 {
-	ColorColT::const_iterator it = _table.find(color);
+	ColorSetT::const_iterator it = _table.find(color);
 	if(it == _table.end()) throw;
 	
-	return it->second;
+	return *it;
 }
 
 unsigned int ColorTable::size() const
@@ -77,19 +40,18 @@ bool ColorTable::contains(const Color& color) const
 }
 
 ColorTable::ColorSetT
-ColorTable::used_colors() const
+ColorTable::get() const
 {
-	return _used_colors;
+	return _table;
 }
 
 std::string ColorTable::str() const
 {
 	std::stringstream ss;
-	for(ColorColT::const_iterator it = _table.begin();
-			it != _table.end();
-			++it)
+	ColorSetT::const_iterator it = _table.begin();
+	for(; it != _table.end(); ++it)
 	{
-		ss << it->first << " => " << it->second << "\n";
+		ss << *it << "\n";
 	}
 	
 	return ss.str();

@@ -73,11 +73,8 @@ CLASS_SRC=\
 		types/ColorSymbolTable.cpp\
 		types/Symbol.cpp\
 		types/SymbolTable.cpp\
-		types/Correspondence.cpp\
-		config/TransformationTable.cpp\
 		fancy/Image.cpp\
-		fancy/IMagickImage.cpp\
-		fancy/GILImage.cpp
+		fancy/IMagickImage.cpp
 
 SRC=$(COMMON_SRC) $(CLASS_SRC)
 

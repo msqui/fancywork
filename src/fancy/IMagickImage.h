@@ -23,15 +23,9 @@ public:
 	
 	void open(const std::string& filename);
 	
-	void process(unsigned int num_colors, 
-								unsigned int square_side, 
-								const Image::TTPtrT& ttPtr,
+	void process(size_t num_colors, 
+								size_t square_side, 
 								const std::string& suffix);
-								
-	void process_2(size_t num_colors,
-									size_t square_side,
-									const Image::TTPtrT& ttPtr,
-									const std::string& suffix);
 									
 	Magick::Color process_element(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1);
 	
