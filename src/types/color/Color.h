@@ -6,6 +6,7 @@
 
 namespace fw {
 namespace types {
+namespace color {
 
 class Color
 {
@@ -28,6 +29,6 @@ protected:
 	unsigned int _b;
 };
 
-}}
+}}}
 
 #endif /* end of include guard: __COLOR_H__ */

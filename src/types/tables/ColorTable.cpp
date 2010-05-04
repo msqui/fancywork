@@ -2,16 +2,15 @@
 
 #include <sstream>
 
-#include <cmath>
-
 namespace fw {
 namespace types {
+namespace tables {
 
 ColorTable::ColorTable() :
 	_table()
 {}
 
-void ColorTable::add(const Color& color)
+void ColorTable::add(const fw::types::color::Color& color)
 {
 	_table.insert(color);
 }
@@ -21,7 +20,8 @@ void ColorTable::clear()
 	_table.clear();
 }
 
-Color ColorTable::find(const Color& color)
+fw::types::color::Color 
+ColorTable::find(const fw::types::color::Color& color)
 {
 	ColorSetT::const_iterator it = _table.find(color);
 	if(it == _table.end()) throw;
@@ -34,7 +34,7 @@ unsigned int ColorTable::size() const
 	return _table.size();
 }
 
-bool ColorTable::contains(const Color& color) const
+bool ColorTable::contains(const fw::types::color::Color& color) const
 {
 	return _table.find(color) == _table.end();
 }
@@ -57,4 +57,4 @@ std::string ColorTable::str() const
 	return ss.str();
 }
 
-}}
+}}}

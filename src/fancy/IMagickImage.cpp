@@ -4,13 +4,15 @@
 #include <stdexcept>
 
 #include "types/common/NullPtr.h"
-#include "types/Color.h"
-#include "types/MagickColor.h"
-#include "types/ColorTable.h"
-#include "types/ColorSymbolTable.h"
+#include "types/color/Color.h"
+#include "types/color/MagickColor.h"
+#include "types/tables/ColorTable.h"
+#include "types/tables/ColorSymbolTable.h"
 
 #include <map>
 #include <fstream>
+
+namespace fwt = fw::types;
 
 namespace fw {
 namespace fancy {
@@ -58,7 +60,7 @@ void IMagickImage::process(size_t num_colors,
 	// = Process colors =
 	// ==================
 	// analyze image colors
-	fw::types::ColorTable color_table;
+	fwt::tables::ColorTable color_table;
 	Magick::Color color;
 	// new_img.reduceNoise();
 	new_img.quantizeColors(num_colors);
@@ -68,7 +70,7 @@ void IMagickImage::process(size_t num_colors,
 		for(size_t x = 0; x < new_width; ++x)
 		{
 			color = new_img.pixelColor(x,y);
-			color_table.add(fw::types::MagickColor(color));
+			color_table.add(fwt::color::MagickColor(color));
 		}
 	}
 	
@@ -81,13 +83,13 @@ void IMagickImage::process(size_t num_colors,
 	// =============
 	// = Save text =
 	// =============
-	fw::types::ColorSymbolTable color_letter(color_table.get());
+	fwt::tables::ColorSymbolTable color_letter(color_table.get());
 	std::string line = "";
 	for(unsigned int y = 0; y < new_height; ++y)
 	{
 		for(unsigned int x = 0; x < new_width; ++x)
 		{
-			line += color_letter.get(fw::types::MagickColor(new_img.pixelColor(x, y)));
+			line += color_letter.get(fwt::color::MagickColor(new_img.pixelColor(x, y)));
 			line += " ";
 		}
 		line += "\n";
@@ -131,7 +133,7 @@ void IMagickImage::process(unsigned int num_colors,
 													Magick::Color("white"));
 	
 	Magick::Color new_color;
-	fw::types::ColorTable color_table;
+	fwt::tables::ColorTable color_table;
 	
 	for(unsigned int y = 0; y < v_steps_cnt; ++y)
 	{
@@ -139,8 +141,8 @@ void IMagickImage::process(unsigned int num_colors,
 		{
 			new_color = process_element(x * h_step, y * v_step, (x + 1) * h_step, (y + 1) * v_step);
 			// new_image.pixelColor(x, y, new_color);
-			color_table.add(fw::types::MagickColor(new_color), 
-											fw::types::MagickColor(new_color));
+			color_table.add(fwt::MagickColor(new_color), 
+											fwt::MagickColor(new_color));
 			
 			for(unsigned int yy = y * v_step; yy < (y + 1) * v_step; ++yy)
 			{
@@ -166,7 +168,7 @@ void IMagickImage::process(unsigned int num_colors,
 	{
 		for(unsigned int x = 0; x < new_image.columns(); ++x)
 		{
-			new_image.pixelColor(x, y, fw::types::MagickColor(color_table.find(fw::types::MagickColor(new_image.pixelColor(x, y)))));
+			new_image.pixelColor(x, y, fwt::MagickColor(color_table.find(fwt::MagickColor(new_image.pixelColor(x, y)))));
 		}
 	}
 	
@@ -180,11 +182,11 @@ void IMagickImage::process(unsigned int num_colors,
 	// std::string letters = " abcdefghijklmnopqrstuvwxyz";
 	// size_t curr_letter_ind = 0;
 	// std::string curr_letter;
-	// std::map<fw::types::MagickColor, std::string> color_letter;
-	// std::map<fw::types::MagickColor, std::string>::const_iterator it;
+	// std::map<fwt::MagickColor, std::string> color_letter;
+	// std::map<fwt::MagickColor, std::string>::const_iterator it;
 	
-	fw::types::ColorSymbolTable color_letter(color_table.used_colors());
-	fw::types::MagickColor curr_color;
+	fwt::ColorSymbolTable color_letter(color_table.used_colors());
+	fwt::MagickColor curr_color;
 	
 	std::string line = "";
 	for(unsigned int y = 0; y < v_steps_cnt; ++y)
@@ -219,11 +221,11 @@ void IMagickImage::process(unsigned int num_colors,
 	std::list<Magick::Drawable> objects_to_draw;
 	objects_to_draw.push_back(Magick::DrawableStrokeColor(Magick::Color("black")));
 	objects_to_draw.push_back(Magick::DrawableFont("-*-helvetica-medium-r-normal-*-*-300-*-*-*-*-iso8859-1"));
-	fw::types::ColorSymbolTable::ColorSymbolColT::const_iterator it = color_letter.table().begin();
+	fwt::ColorSymbolTable::ColorSymbolColT::const_iterator it = color_letter.table().begin();
 	size_t i = 0;
 	for(; it != color_letter.table().end(); ++it, ++i)
 	{
-		objects_to_draw.push_back(Magick::DrawableFillColor(fw::types::MagickColor(it->first)));
+		objects_to_draw.push_back(Magick::DrawableFillColor(fwt::MagickColor(it->first)));
 		objects_to_draw.push_back(Magick::DrawableRectangle(10, i * 200 + 10, 280, (i + 1) * 200));
 		objects_to_draw.push_back(Magick::DrawableFillColor(Magick::Color("black")));
 		objects_to_draw.push_back(Magick::DrawableText(130, i * 200 + 100 + 10, it->second));
@@ -270,12 +272,12 @@ Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0,
 // std::vector<Magick::Color> IMagickImage::getColors(unsigned int num_colors, unsigned int max_color)
 // {
 // 	
-// 	// fw::types::Color start_color(0, 0, 0);
-// 	// fw::types::Color end_color(max_color, max_color, max_color);
+// 	// fwt::Color start_color(0, 0, 0);
+// 	// fwt::Color end_color(max_color, max_color, max_color);
 // 	// 
-// 	// fw::types::ColorRange range(start_color, end_color);
+// 	// fwt::ColorRange range(start_color, end_color);
 // 	// 
-// 	// std::vector<fw::types::Color> colorsVec(start_color);
+// 	// std::vector<fwt::Color> colorsVec(start_color);
 // 	// for(unsigned int i = 0; i <= num_colors - 2; ++i)
 // 	// {
 // 	// 	colorsVec.push_back(range.middle());

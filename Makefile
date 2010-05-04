@@ -67,12 +67,12 @@ CLASS_SRC=\
 		util/Messages.cpp\
 		util/File.cpp\
 		types/common/NullPtr.cpp\
-		types/Color.cpp\
-		types/MagickColor.cpp\
-		types/ColorTable.cpp\
-		types/ColorSymbolTable.cpp\
 		types/Symbol.cpp\
-		types/SymbolTable.cpp\
+		types/color/Color.cpp\
+		types/color/MagickColor.cpp\
+		types/tables/ColorTable.cpp\
+		types/tables/ColorSymbolTable.cpp\
+		types/tables/SymbolTable.cpp\
 		fancy/Image.cpp\
 		fancy/IMagickImage.cpp
 

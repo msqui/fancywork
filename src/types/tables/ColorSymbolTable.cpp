@@ -2,6 +2,7 @@
 
 namespace fw {
 namespace types {
+namespace tables {
 
 ColorSymbolTable::ColorSymbolTable() :
 	_table(),
@@ -20,7 +21,7 @@ ColorSymbolTable::ColorSymbolTable(const ColorTable::ColorSetT& color_set) :
 	}
 }
 
-std::string ColorSymbolTable::get(const Color& color) const
+std::string ColorSymbolTable::get(const fw::types::color::Color& color) const
 {
 	ColorSymbolColT::const_iterator it = _table.find(color);
 	if(it != _table.end())
@@ -55,4 +56,4 @@ ColorSymbolTable::table() const
 	return _table;
 }
 
-}}
+}}}

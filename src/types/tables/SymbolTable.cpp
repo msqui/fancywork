@@ -5,6 +5,7 @@
 
 namespace fw {
 namespace types {
+namespace tables {
 
 SymbolTable::SymbolTable() :
 	_string("abcdefghijklmnopqrstuvwxyz")
@@ -34,4 +35,4 @@ std::string SymbolTable::operator[] (size_t n) const
 	return ss_res.str();
 }
 
-}}
+}}}

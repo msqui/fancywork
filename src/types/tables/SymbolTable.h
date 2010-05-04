@@ -5,6 +5,7 @@
 
 namespace fw {
 namespace types {
+namespace tables {
 
 class SymbolTable
 {
@@ -18,6 +19,6 @@ private:
 	std::string _string;
 };
 
-}}
+}}}
 
 #endif /* end of include guard: __SYMBOLTABLE_HPP__ */

@@ -9,8 +9,6 @@
 
 #include <Magick++.h>
 
-#include "types/Color.h"
-
 namespace fw {
 namespace fancy {
 

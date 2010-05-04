@@ -7,6 +7,7 @@
 
 namespace fw {
 namespace types {
+namespace color {
 
 class MagickColor : public Color
 {
@@ -18,6 +19,6 @@ public:
 	operator Magick::Color ();
 };
 
-}}
+}}}
 
 #endif /* end of include guard: __MAGICKCOLOR_H__ */

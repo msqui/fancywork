@@ -9,6 +9,7 @@
 
 namespace fw {
 namespace types {
+namespace color {
 
 Color::Color() :
 	_r(0), _g(0), _b(0)
@@ -73,4 +74,4 @@ std::ostream& operator<< (std::ostream& ostr, const Color& color)
 	return ostr;
 }
 
-}}
+}}}

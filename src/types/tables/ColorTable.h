@@ -4,25 +4,26 @@
 #include <set>
 #include <string>
 
-#include "Color.h"
+#include "types/color/Color.h"
 
 namespace fw {
 namespace types {
+namespace tables {
 
 class ColorTable
 {
 public:
-	typedef std::set<Color> ColorSetT;
+	typedef std::set<fw::types::color::Color> ColorSetT;
 	
 	ColorTable();
 	
-	void add(const Color& color);
+	void add(const fw::types::color::Color& color);
 	void clear();
 	
-	Color find(const Color& color);
+	fw::types::color::Color find(const fw::types::color::Color& color);
 	
 	unsigned int size() const;
-	bool contains(const Color& color) const;
+	bool contains(const fw::types::color::Color& color) const;
 	
 	ColorSetT get() const;
 	std::string str() const;
@@ -31,6 +32,6 @@ private:
 	ColorSetT _table;
 };
 
-}}
+}}}
 
 #endif /* end of include guard: __COLORTABLE_H__ */

@@ -2,6 +2,7 @@
 
 namespace fw {
 namespace types {
+namespace color {
 
 MagickColor::MagickColor() :
 	Color()
@@ -20,4 +21,4 @@ MagickColor::operator Magick::Color ()
 	return Magick::Color(_r, _g, _b, 0);
 }
 
-}}
+}}}
