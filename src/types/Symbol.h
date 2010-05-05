@@ -12,6 +12,7 @@ class Symbol
 public:
 	Symbol();
 	Symbol(const std::string& s);
+	// Symbol(const char chr);
 	
 	std::string str() const;
 
