@@ -7,6 +7,9 @@
 namespace fw {
 namespace types {
 
+/*
+	TODO add Symbol superposition
+*/
 class Symbol
 {
 public:
