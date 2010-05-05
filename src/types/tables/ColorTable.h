@@ -22,7 +22,7 @@ public:
 	
 	fw::types::color::Color find(const fw::types::color::Color& color);
 	
-	unsigned int size() const;
+	size_t size() const;
 	bool contains(const fw::types::color::Color& color) const;
 	
 	ColorSetT get() const;

@@ -29,7 +29,7 @@ ColorTable::find(const fw::types::color::Color& color)
 	return *it;
 }
 
-unsigned int ColorTable::size() const
+size_t ColorTable::size() const
 {
 	return _table.size();
 }
