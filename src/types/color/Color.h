@@ -12,7 +12,7 @@ class Color
 {
 public:
 	Color();
-	Color(unsigned int r, unsigned int g, unsigned int b);
+	Color(size_t r, size_t g, size_t b);
 	Color(const std::string& str, const std::string& delimiter = ",");
 	
 	~Color();
@@ -24,9 +24,9 @@ public:
 	friend std::ostream& operator<< (std::ostream& ostr, const Color& color);
 
 protected:
-	unsigned int _r;
-	unsigned int _g;
-	unsigned int _b;
+	size_t _r;
+	size_t _g;
+	size_t _b;
 };
 
 }}}

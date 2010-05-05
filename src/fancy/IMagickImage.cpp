@@ -85,9 +85,9 @@ void IMagickImage::process(size_t num_colors,
 	// =============
 	fwt::tables::ColorSymbolTable color_letter(color_table.get());
 	std::string line = "";
-	for(unsigned int y = 0; y < new_height; ++y)
+	for(size_t y = 0; y < new_height; ++y)
 	{
-		for(unsigned int x = 0; x < new_width; ++x)
+		for(size_t x = 0; x < new_width; ++x)
 		{
 			line += color_letter.get(fwt::color::MagickColor(new_img.pixelColor(x, y)));
 			line += " ";
@@ -104,27 +104,27 @@ void IMagickImage::process(size_t num_colors,
 
 
 /*
-void IMagickImage::process(unsigned int num_colors, 
-														unsigned int square_side, 
+void IMagickImage::process(size_t num_colors, 
+														size_t square_side, 
 														const Image::TTPtrT& ttPtr,
 														const std::string& suffix)
 {
-	unsigned int width = this->width();
-	unsigned int height = this->height();
+	size_t width = this->width();
+	size_t height = this->height();
 	
-	unsigned int h_step = square_side;
-	unsigned int v_step = square_side;
+	size_t h_step = square_side;
+	size_t v_step = square_side;
 	
 	if( (h_step == 0) || (v_step == 0) )
 	{
 		throw std::invalid_argument("Step must be greater than 0");
 	}
 
-	unsigned int h_steps_cnt = static_cast<unsigned int>(floor(width / h_step));
-	unsigned int v_steps_cnt = static_cast<unsigned int>(floor(height / v_step));
+	size_t h_steps_cnt = static_cast<size_t>(floor(width / h_step));
+	size_t v_steps_cnt = static_cast<size_t>(floor(height / v_step));
 	
-	unsigned int round_width = h_step * h_steps_cnt;
-	unsigned int round_height = v_step * v_steps_cnt;
+	size_t round_width = h_step * h_steps_cnt;
+	size_t round_height = v_step * v_steps_cnt;
 	
 	// Magick::Image new_image(Magick::Geometry(h_steps_cnt, v_steps_cnt), 
 	// 												Magick::Color("white"));	
@@ -135,18 +135,18 @@ void IMagickImage::process(unsigned int num_colors,
 	Magick::Color new_color;
 	fwt::tables::ColorTable color_table;
 	
-	for(unsigned int y = 0; y < v_steps_cnt; ++y)
+	for(size_t y = 0; y < v_steps_cnt; ++y)
 	{
-		for(unsigned int x = 0; x < h_steps_cnt; ++x)
+		for(size_t x = 0; x < h_steps_cnt; ++x)
 		{
 			new_color = process_element(x * h_step, y * v_step, (x + 1) * h_step, (y + 1) * v_step);
 			// new_image.pixelColor(x, y, new_color);
 			color_table.add(fwt::MagickColor(new_color), 
 											fwt::MagickColor(new_color));
 			
-			for(unsigned int yy = y * v_step; yy < (y + 1) * v_step; ++yy)
+			for(size_t yy = y * v_step; yy < (y + 1) * v_step; ++yy)
 			{
-				for(unsigned int xx = x * h_step; xx < (x + 1) * h_step; ++xx)
+				for(size_t xx = x * h_step; xx < (x + 1) * h_step; ++xx)
 				{
 					new_image.pixelColor(xx, yy, new_color);
 				}
@@ -164,9 +164,9 @@ void IMagickImage::process(unsigned int num_colors,
 	// =======================
 	// = Save modified image =
 	// =======================
-	for(unsigned int y = 0; y < new_image.rows(); ++y)
+	for(size_t y = 0; y < new_image.rows(); ++y)
 	{
-		for(unsigned int x = 0; x < new_image.columns(); ++x)
+		for(size_t x = 0; x < new_image.columns(); ++x)
 		{
 			new_image.pixelColor(x, y, fwt::MagickColor(color_table.find(fwt::MagickColor(new_image.pixelColor(x, y)))));
 		}
@@ -189,9 +189,9 @@ void IMagickImage::process(unsigned int num_colors,
 	fwt::MagickColor curr_color;
 	
 	std::string line = "";
-	for(unsigned int y = 0; y < v_steps_cnt; ++y)
+	for(size_t y = 0; y < v_steps_cnt; ++y)
 	{
-		for(unsigned int x = 0; x < h_steps_cnt; ++x)
+		for(size_t x = 0; x < h_steps_cnt; ++x)
 		{
 			// curr_color = new_image.pixelColor(x * h_step, y * v_step);
 			// it = color_letter.find(curr_color);
@@ -236,8 +236,8 @@ void IMagickImage::process(unsigned int num_colors,
 }
 */
 
-Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0, 
-																								unsigned int x1, unsigned int y1)
+Magick::Color IMagickImage::process_element(size_t x0, size_t y0, 
+																								size_t x1, size_t y1)
 {
 	
 	unsigned long	r = 0, 
@@ -248,9 +248,9 @@ Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0,
 	
 	Magick::Color color;
 	
-	for(unsigned int y = y0; y < y1; ++y)
+	for(size_t y = y0; y < y1; ++y)
 	{
-		for(unsigned int x = x0; x < x1; ++x)
+		for(size_t x = x0; x < x1; ++x)
 		{
 			color = _img.pixelColor(x, y);
 			r += color.redQuantum();
@@ -261,15 +261,15 @@ Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0,
 		}
 	}
 	
-	r = static_cast<unsigned int>(floor(r / total));
-	g = static_cast<unsigned int>(floor(g / total));
-	b = static_cast<unsigned int>(floor(b / total));
+	r = static_cast<size_t>(floor(r / total));
+	g = static_cast<size_t>(floor(g / total));
+	b = static_cast<size_t>(floor(b / total));
 	
 	return Magick::Color(r, g, b, 0);
 }
 
 
-// std::vector<Magick::Color> IMagickImage::getColors(unsigned int num_colors, unsigned int max_color)
+// std::vector<Magick::Color> IMagickImage::getColors(size_t num_colors, size_t max_color)
 // {
 // 	
 // 	// fwt::Color start_color(0, 0, 0);
@@ -278,7 +278,7 @@ Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0,
 // 	// fwt::ColorRange range(start_color, end_color);
 // 	// 
 // 	// std::vector<fwt::Color> colorsVec(start_color);
-// 	// for(unsigned int i = 0; i <= num_colors - 2; ++i)
+// 	// for(size_t i = 0; i <= num_colors - 2; ++i)
 // 	// {
 // 	// 	colorsVec.push_back(range.middle());
 // 	// }
@@ -287,16 +287,16 @@ Magick::Color IMagickImage::process_element(unsigned int x0, unsigned int y0,
 // 	
 // 	
 // 	
-// 	// unsigned int color_line = max_color * pow(10,2) + max_color * pow(10,1) + max_color;
+// 	// size_t color_line = max_color * pow(10,2) + max_color * pow(10,1) + max_color;
 // 	// if(num_colors >= color_line)
 // 	// {
 // 	// 	return std::vector<Magick::Color>();
 // 	// }
 // 	// 
 // 	// std::vector<Magick::Color> colorsVec;
-// 	// unsigned int step = static_cast<unsigned int>(floor(color_line / num_colors));
+// 	// size_t step = static_cast<size_t>(floor(color_line / num_colors));
 // 	// 
-// 	// for(unsigned int i = 0; i <= step * num_colors; ++i)
+// 	// for(size_t i = 0; i <= step * num_colors; ++i)
 // 	// {
 // 	// 	i / max_color;
 // 	// 	colorsVec.push_back(Magick::Color(i, i, i))

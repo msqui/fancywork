@@ -29,8 +29,8 @@ int main (int argc, char* argv[])
 	FilenameT tt_filename;
 	FilenamesVecT input_files;
 	
-	unsigned int num_colors;
-	unsigned int square_side;
+	size_t num_colors;
+	size_t square_side;
 	
 	// ===========================
 	// = Command line processing =
@@ -44,8 +44,8 @@ int main (int argc, char* argv[])
 
 		po::options_description opt_desc("Optional params");
 		opt_desc.add_options()
-			("side,s", po::value<unsigned int>(&square_side)->default_value(5), "fancy square side")
-			("colors,c", po::value<unsigned int>(&num_colors)->default_value(16), "number of colors")
+			("side,s", po::value<size_t>(&square_side)->default_value(5), "fancy square side")
+			("colors,c", po::value<size_t>(&num_colors)->default_value(16), "number of colors")
 		;
 			
 		po::options_description help_desc("Help");
