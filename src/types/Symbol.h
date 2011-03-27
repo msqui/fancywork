@@ -1,6 +1,7 @@
 #ifndef __SYMBOL_H__
 #define __SYMBOL_H__
 
+#include <vector>
 #include <string>
 #include <iostream>
 
@@ -13,9 +14,12 @@ namespace types {
 class Symbol
 {
 public:
+	typedef std::vector<Symbol> SymbolCollT;
+	
 	Symbol();
 	Symbol(const std::string& s);
-	// Symbol(const char chr);
+	
+	void add(const Symbol& symbol);
 	
 	std::string str() const;
 
@@ -23,7 +27,7 @@ public:
 	friend bool operator== (const Symbol& s1, const Symbol& s2);
 	
 private:
-	std::string _symbol;
+	SymbolCollT _symbol;
 };
 
 
