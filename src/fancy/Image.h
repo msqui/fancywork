@@ -4,11 +4,11 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "types/common/NullPtr.h"
-
 namespace fw {
 namespace fancy {
-
+/**
+ * Interface for image processors
+**/
 class Image
 {
 public:

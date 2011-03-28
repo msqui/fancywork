@@ -3,7 +3,6 @@
 #include <cmath>
 #include <stdexcept>
 
-#include "types/common/NullPtr.h"
 #include "types/color/Color.h"
 #include "types/color/MagickColor.h"
 #include "types/tables/ColorTable.h"

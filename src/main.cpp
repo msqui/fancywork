@@ -11,8 +11,6 @@ namespace po = boost::program_options;
 #include "fancy/IMagickImage.h"
 #include "fancy/GILImage.h"
 
-#include "types/common/NullPtr.h"
-
 using namespace fw;
 
 // Usage help message
@@ -121,7 +119,6 @@ int main (int argc, char* argv[])
   // = Images processing =
   // =====================
   try {
-    fancy::Image::ImagePtrT myImg;
     ProcessFile process_file(num_colors, square_side);
     std::for_each(input_files.begin(), input_files.end(), process_file);
   }
