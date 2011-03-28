@@ -53,7 +53,7 @@ std::string ColorTable::str() const
 {
   std::stringstream ss;
   
-  for_each(_table.begin(), _table.end(), ss << _1 << "\n");
+  std::for_each(_table.begin(), _table.end(), ss << _1 << "\n");
   
   return ss.str();
 }
