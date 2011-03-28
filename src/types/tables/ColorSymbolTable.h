@@ -15,7 +15,8 @@ namespace tables {
 class ColorSymbolTable
 {
 public:
-  typedef std::map<fw::types::color::Color, std::string> ColorSymbolColT;
+  typedef fw::types::color::Color ColorT;
+  typedef std::map<ColorT, std::string> ColorSymbolColT;
   
   ColorSymbolTable();
   ColorSymbolTable(const ColorTable::ColorSetT& color_set);
