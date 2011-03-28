@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <iterator>
+#include <algorithm>
 
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
@@ -18,14 +18,43 @@ using namespace fw;
 // Usage help message
 void usage(const std::string& message, const po::options_description& desc);
 
+// Used types
+typedef std::string FilenameT;
+typedef std::vector<FilenameT> FilenamesVecT;
+
+/**
+ * Functor to process each file in list
+**/
+struct ProcessFile : public std::unary_function<FilenameT, void> {
+  ProcessFile(size_t num_colors, size_t square_side) :
+    _num_colors(num_colors),
+    _square_side(square_side)
+  {}
+  
+  void operator() (FilenameT filename) const {
+    fancy::Image::ImagePtrT myImg = 
+        fancy::Image::create<fancy::IMagickImage>(filename);
+        
+    std::cout << myImg->filename() << " has:" << std::endl;
+    std::cout << myImg->width() << " columns" << std::endl;
+    std::cout << myImg->height() << " rows" << std::endl;
+    
+    myImg->process(_num_colors, _square_side);
+    
+    // myImg = fancy::Image::create<fancy::GILImage>(filename);
+    // myImg->process(num_colors, square_side, tt);
+  }
+  
+private:
+  size_t _num_colors;
+  size_t _square_side;
+};
+
 int main (int argc, char* argv[])
 {
   // ==================
   // = Config options =
   // ==================
-  typedef std::string FilenameT;
-  typedef std::vector<FilenameT> FilenamesVecT;
-  
   FilenameT tt_filename;
   FilenamesVecT input_files;
   
@@ -100,22 +129,8 @@ int main (int argc, char* argv[])
   try
   {
     fancy::Image::ImagePtrT myImg;
-    for(FilenamesVecT::const_iterator it = input_files.begin();
-        it != input_files.end();
-        ++it)
-    {
-      fancy::Image::ImagePtrT myImg = 
-          fancy::Image::create<fancy::IMagickImage>(*it);
-          
-      std::cout << myImg->filename() << " has:" << std::endl;
-      std::cout << myImg->width() << " columns" << std::endl;
-      std::cout << myImg->height() << " rows" << std::endl;
-      
-      myImg->process(num_colors, square_side);
-
-      // myImg = fancy::Image::create<fancy::GILImage>(*it);
-      // myImg->process(num_colors, square_side, tt);
-    }
+    ProcessFile process_file(num_colors, square_side);
+    for_each(input_files.begin(), input_files.end(), process_file);
   }
   catch(Magick::Error& e)
   {
