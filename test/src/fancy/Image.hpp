@@ -10,12 +10,12 @@ namespace {
 class ImageTest : public ::testing::Test
 {
 protected:
-	ImageTest() {}
+  ImageTest() {}
 };
 
 TEST_F(ImageTest, FilenameTest)
 {
-	ASSERT_EQ(4, 2*2);
+  ASSERT_EQ(4, 2*2);
 }
 
 }

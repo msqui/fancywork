@@ -14,19 +14,19 @@ namespace tables {
 
 class SymbolTable
 {
-public:	
-	typedef std::vector<fwt::Symbol> SymbolCollT;
-	
-	SymbolTable();
-	SymbolTable(const std::string& string);
-	
-	void add(const std::string& string);
-	
-	std::string operator[] (size_t n) const;
-	
+public: 
+  typedef std::vector<fwt::Symbol> SymbolCollT;
+  
+  SymbolTable();
+  SymbolTable(const std::string& string);
+  
+  void add(const std::string& string);
+  
+  std::string operator[] (size_t n) const;
+  
 private:
-	SymbolCollT _table;
-	
+  SymbolCollT _table;
+  
 };
 
 }}}

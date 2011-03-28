@@ -12,11 +12,11 @@ namespace color {
 class MagickColor : public Color
 {
 public:
-	MagickColor();
-	MagickColor(const Color& color);
-	MagickColor(const Magick::Color& color);
-	
-	operator Magick::Color ();
+  MagickColor();
+  MagickColor(const Color& color);
+  MagickColor(const Magick::Color& color);
+  
+  operator Magick::Color ();
 };
 
 }}}

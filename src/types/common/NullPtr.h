@@ -6,11 +6,11 @@
 class NullPtr
 {
 public:
-	template <typename T>
-	operator boost::shared_ptr<T>()
-	{
-		return boost::shared_ptr<T>();
-	}
+  template <typename T>
+  operator boost::shared_ptr<T>()
+  {
+    return boost::shared_ptr<T>();
+  }
 };
 
 extern NullPtr nullPtr;

@@ -16,20 +16,20 @@ namespace fancy {
 class GILImage : public Image, private boost::noncopyable
 {
 public:
-	typedef boost::shared_ptr<GILImage> GILImagePtrT;
-	
-	static GILImagePtrT create(const std::string& filename);
-	
-	void open(const std::string& filename);
-	
-	void process(size_t num_colors,
-								size_t square_side,
-								const std::string& suffix);
-								
+  typedef boost::shared_ptr<GILImage> GILImagePtrT;
+  
+  static GILImagePtrT create(const std::string& filename);
+  
+  void open(const std::string& filename);
+  
+  void process(size_t num_colors,
+                size_t square_side,
+                const std::string& suffix);
+                
 private:
-	GILImage(const std::string& filename);
-	
-	bg::rgb8_image_t _img;
+  GILImage(const std::string& filename);
+  
+  bg::rgb8_image_t _img;
 };
 
 }}

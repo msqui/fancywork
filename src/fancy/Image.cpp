@@ -7,22 +7,22 @@ Image::~Image()
 {}
 
 Image::Image(const std::string& filename) :
-	_filename(filename)
+  _filename(filename)
 {}
 
 std::string Image::filename() const
 {
-	return _filename;
+  return _filename;
 }
 
 size_t Image::width() const
 {
-	return _width;
+  return _width;
 }
 
 size_t Image::height() const
 {
-	return _height;
+  return _height;
 }
 
 }}

@@ -9,25 +9,25 @@ namespace fw {
 namespace types {
 
 /*
-	TODO add Symbol superposition
+  TODO add Symbol superposition
 */
 class Symbol
 {
 public:
-	typedef std::vector<Symbol> SymbolCollT;
-	
-	Symbol();
-	Symbol(const std::string& s);
-	
-	void add(const Symbol& symbol);
-	
-	std::string str() const;
+  typedef std::vector<Symbol> SymbolCollT;
+  
+  Symbol();
+  Symbol(const std::string& s);
+  
+  void add(const Symbol& symbol);
+  
+  std::string str() const;
 
-	friend std::ostream& operator<< (std::ostream& ostr, const Symbol& symbol);
-	friend bool operator== (const Symbol& s1, const Symbol& s2);
-	
+  friend std::ostream& operator<< (std::ostream& ostr, const Symbol& symbol);
+  friend bool operator== (const Symbol& s1, const Symbol& s2);
+  
 private:
-	SymbolCollT _symbol;
+  SymbolCollT _symbol;
 };
 
 
@@ -35,7 +35,7 @@ private:
 class NoSymbol : public Symbol
 {
 public:
-	NoSymbol();
+  NoSymbol();
 };
 
 }}

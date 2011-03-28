@@ -4,37 +4,37 @@ namespace fw {
 namespace types {
 
 Symbol::Symbol() :
-	_symbol("")
+  _symbol("")
 {}
 
 Symbol::Symbol(const std::string& s) :
-	_symbol(s)
+  _symbol(s)
 {}
 
 void Symbol::add(const Symbol& symbol)
 {
-	_symbol.push_back(symbol);
+  _symbol.push_back(symbol);
 }
 
 std::string Symbol::str() const
 {
-	return _symbol;
+  return _symbol;
 }
 
 std::ostream& operator<< (std::ostream& ostr, const Symbol& symbol)
 {
-	ostr << symbol._symbol;
-	return ostr;
+  ostr << symbol._symbol;
+  return ostr;
 }
 
 bool operator== (const Symbol& s1, const Symbol& s2)
 {
-	return s1._symbol == s2._symbol;
+  return s1._symbol == s2._symbol;
 }
 
 
 NoSymbol::NoSymbol() :
-	Symbol("NONE")
+  Symbol("NONE")
 {}
 
 }}

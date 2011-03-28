@@ -7,39 +7,39 @@ File::File()
 {}
 
 File::File(const std::string& filename, 
-	std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out)
+  std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out)
 {
-	open(filename, mode);
+  open(filename, mode);
 }
 
 File::~File()
 {
-	close();
+  close();
 }
 
 File::FilePtrT
 File::create()
 {
-	return File::FilePtrT(new File());
+  return File::FilePtrT(new File());
 }
 
 
 
 void File::open(const std::string& filename, 
-	std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out)
+  std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out)
 {
-	close();
-	_fs.open(filename.c_str(), mode);
+  close();
+  _fs.open(filename.c_str(), mode);
 }
 
 void File::open_in(const std::string& filename)
 {
-	open(filename, std::ios_base::in);
+  open(filename, std::ios_base::in);
 }
 
 void File::open_out(const std::string& filename)
 {
-	open(filename, std::ios_base::out);
+  open(filename, std::ios_base::out);
 }
 
 
@@ -47,21 +47,21 @@ void File::open_out(const std::string& filename)
 
 bool File::getline(std::string& line)
 {
-	if( (!_fs.good()) || (_fs.eof()) )
-	{
-		return false;
-	}
-	
-	std::getline(_fs, line);
-	return true;
+  if( (!_fs.good()) || (_fs.eof()) )
+  {
+    return false;
+  }
+  
+  std::getline(_fs, line);
+  return true;
 }
 
 void File::close()
 {
-	if(_fs.is_open())
-	{
-		_fs.close();
-	}
+  if(_fs.is_open())
+  {
+    _fs.close();
+  }
 }
 
 }}

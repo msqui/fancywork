@@ -15,20 +15,20 @@ namespace tables {
 class ColorSymbolTable
 {
 public:
-	typedef std::map<fw::types::color::Color, std::string> ColorSymbolColT;
-	
-	ColorSymbolTable();
-	ColorSymbolTable(const ColorTable::ColorSetT& color_set);
-	
-	std::string get(const fw::types::color::Color& color) const;
-	std::string legend() const;
-	size_t size() const;
-	
-	const ColorSymbolColT& table() const;
-	
+  typedef std::map<fw::types::color::Color, std::string> ColorSymbolColT;
+  
+  ColorSymbolTable();
+  ColorSymbolTable(const ColorTable::ColorSetT& color_set);
+  
+  std::string get(const fw::types::color::Color& color) const;
+  std::string legend() const;
+  size_t size() const;
+  
+  const ColorSymbolColT& table() const;
+  
 private:
-	ColorSymbolColT _table;
-	SymbolTable _symbol_table;
+  ColorSymbolColT _table;
+  SymbolTable _symbol_table;
 };
 
 }}}
