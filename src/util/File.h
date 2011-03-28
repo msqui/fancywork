@@ -19,7 +19,7 @@ public:
   
   static FilePtrT create();
   
-  ~File();
+  virtual ~File();
   
   void open(const std::string& filename, std::ios_base::openmode);
   void open_in(const std::string& filename);
