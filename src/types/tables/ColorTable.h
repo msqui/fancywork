@@ -13,17 +13,18 @@ namespace tables {
 class ColorTable
 {
 public:
-  typedef std::set<fw::types::color::Color> ColorSetT;
+  typedef fw::types::color::Color ColorT;
+  typedef std::set<ColorT> ColorSetT;
   
   ColorTable();
   
-  void add(const fw::types::color::Color& color);
+  void add(const ColorT& color);
   void clear();
   
-  fw::types::color::Color find(const fw::types::color::Color& color);
+  ColorT find(const ColorT& color);
   
   size_t size() const;
-  bool contains(const fw::types::color::Color& color) const;
+  bool contains(const ColorT& color) const;
   
   ColorSetT get() const;
   std::string str() const;
