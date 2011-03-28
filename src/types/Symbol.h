@@ -19,15 +19,16 @@ public:
   Symbol();
   Symbol(const std::string& s);
   
-  void add(const Symbol& symbol);
+  // void add(const Symbol& symbol);
   
   std::string str() const;
-
+  
   friend std::ostream& operator<< (std::ostream& ostr, const Symbol& symbol);
   friend bool operator== (const Symbol& s1, const Symbol& s2);
   
 private:
-  SymbolCollT _symbol;
+  // SymbolCollT _symbol;
+  std::string _symbol;
 };
 
 
