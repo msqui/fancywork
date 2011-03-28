@@ -19,7 +19,7 @@ public:
   Symbol();
   Symbol(const std::string& s);
   
-  // void add(const Symbol& symbol);
+  void add(const Symbol& symbol);
   
   std::string str() const;
   

@@ -11,10 +11,10 @@ Symbol::Symbol(const std::string& s) :
   _symbol(s)
 {}
 
-// void Symbol::add(const Symbol& symbol)
-// {
-//   _symbol.push_back(symbol);
-// }
+void Symbol::add(const Symbol& symbol)
+{
+  _symbol += symbol.str();
+}
 
 std::string Symbol::str() const
 {
