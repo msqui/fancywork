@@ -9,7 +9,9 @@
 
 namespace fw {
 namespace util {
-  
+/**
+ * File abstraction for RAII paradigm
+**/
 class File : private boost::noncopyable
 {
 public:
@@ -23,7 +25,16 @@ public:
   void open_in(const std::string& filename);
   void open_out(const std::string& filename);
   
+  /**
+   * Reads line from opened file
+   * \param[out] line string to which read line
+   * \return true if line is read and false if eof reached or in case of bad fstrea
+  **/
   bool getline(std::string& line);
+  
+  /**
+   * Is called automatically by destructor
+  **/
   void close();
   
 protected:
