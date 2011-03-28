@@ -5,7 +5,10 @@
 
 namespace fw {
 namespace util {
-
+/**
+ * Contains command line messages.
+ * Can not be instantiated.
+**/
 class Messages
 {
 public:
