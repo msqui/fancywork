@@ -21,7 +21,7 @@ public:
   ColorSymbolTable();
   ColorSymbolTable(const ColorTable::ColorSetT& color_set);
   
-  std::string get(const fw::types::color::Color& color) const;
+  std::string get(const ColorT& color) const;
   std::string legend() const;
   size_t size() const;
   
