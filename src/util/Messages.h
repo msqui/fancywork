@@ -3,13 +3,15 @@
 
 #include <string>
 
+#include <boost/utility.hpp>
+
 namespace fw {
 namespace util {
 /**
  * Contains command line messages.
  * Can not be instantiated.
 **/
-class Messages
+class Messages : private boost::noncopyable
 {
 public:
   static const std::string usage; 
@@ -19,8 +21,6 @@ public:
   
 private:
   Messages ();
-  Messages (const Messages&);
-  void operator= (const Messages&);
 };
 
 }}
