@@ -47,8 +47,7 @@ void File::open_out(const std::string& filename)
 
 bool File::getline(std::string& line)
 {
-  if( (!_fs.good()) || (_fs.eof()) )
-  {
+  if ( (!_fs.good()) || (_fs.eof()) ) {
     return false;
   }
   
@@ -58,8 +57,7 @@ bool File::getline(std::string& line)
 
 void File::close()
 {
-  if(_fs.is_open())
-  {
+  if (_fs.is_open()) {
     _fs.close();
   }
 }

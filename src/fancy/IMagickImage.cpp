@@ -65,14 +65,16 @@ void IMagickImage::process(size_t num_colors,
   // new_img.reduceNoise();
   new_img.quantizeColors(num_colors);
   new_img.quantize();
-  for(size_t y = 0; y < new_height; ++y)
-  {
-    for(size_t x = 0; x < new_width; ++x)
-    {
+  for (size_t y = 0; y < new_height; ++y) {
+    for (size_t x = 0; x < new_width; ++x) {
       color = new_img.pixelColor(x,y);
       color_table.add(fwt::color::MagickColor(color));
     }
   }
+  
+  // DEBUG
+  std::cout << color_table.str() << std::endl;
+  // END DEBUG
   
   // =======================
   // = Save modified image =
@@ -85,10 +87,8 @@ void IMagickImage::process(size_t num_colors,
   // =============
   fwt::tables::ColorSymbolTable color_letter(color_table.get());
   std::string line = "";
-  for(size_t y = 0; y < new_height; ++y)
-  {
-    for(size_t x = 0; x < new_width; ++x)
-    {
+  for (size_t y = 0; y < new_height; ++y) {
+    for (size_t x = 0; x < new_width; ++x) {
       line += color_letter.get(fwt::color::MagickColor(new_img.pixelColor(x, y)));
       line += " ";
     }
@@ -115,8 +115,7 @@ void IMagickImage::process(size_t num_colors,
   size_t h_step = square_side;
   size_t v_step = square_side;
   
-  if( (h_step == 0) || (v_step == 0) )
-  {
+  if ( (h_step == 0) || (v_step == 0) ) {
     throw std::invalid_argument("Step must be greater than 0");
   }
 
@@ -135,19 +134,15 @@ void IMagickImage::process(size_t num_colors,
   Magick::Color new_color;
   fwt::tables::ColorTable color_table;
   
-  for(size_t y = 0; y < v_steps_cnt; ++y)
-  {
-    for(size_t x = 0; x < h_steps_cnt; ++x)
-    {
+  for (size_t y = 0; y < v_steps_cnt; ++y) {
+    for (size_t x = 0; x < h_steps_cnt; ++x) {
       new_color = process_element(x * h_step, y * v_step, (x + 1) * h_step, (y + 1) * v_step);
       // new_image.pixelColor(x, y, new_color);
       color_table.add(fwt::MagickColor(new_color), 
                       fwt::MagickColor(new_color));
       
-      for(size_t yy = y * v_step; yy < (y + 1) * v_step; ++yy)
-      {
-        for(size_t xx = x * h_step; xx < (x + 1) * h_step; ++xx)
-        {
+      for (size_t yy = y * v_step; yy < (y + 1) * v_step; ++yy) {
+        for (size_t xx = x * h_step; xx < (x + 1) * h_step; ++xx) {
           new_image.pixelColor(xx, yy, new_color);
         }
       }
@@ -164,10 +159,8 @@ void IMagickImage::process(size_t num_colors,
   // =======================
   // = Save modified image =
   // =======================
-  for(size_t y = 0; y < new_image.rows(); ++y)
-  {
-    for(size_t x = 0; x < new_image.columns(); ++x)
-    {
+  for (size_t y = 0; y < new_image.rows(); ++y) {
+    for (size_t x = 0; x < new_image.columns(); ++x) {
       new_image.pixelColor(x, y, fwt::MagickColor(color_table.find(fwt::MagickColor(new_image.pixelColor(x, y)))));
     }
   }
@@ -189,14 +182,11 @@ void IMagickImage::process(size_t num_colors,
   fwt::MagickColor curr_color;
   
   std::string line = "";
-  for(size_t y = 0; y < v_steps_cnt; ++y)
-  {
-    for(size_t x = 0; x < h_steps_cnt; ++x)
-    {
+  for (size_t y = 0; y < v_steps_cnt; ++y) {
+    for (size_t x = 0; x < h_steps_cnt; ++x) {
       // curr_color = new_image.pixelColor(x * h_step, y * v_step);
       // it = color_letter.find(curr_color);
-      // if(it != color_letter.end())
-      // {
+      // if (it != color_letter.end()) {
       //  line += it->second;
       // }
       curr_color = new_image.pixelColor(x * h_step, y * v_step);
@@ -223,8 +213,7 @@ void IMagickImage::process(size_t num_colors,
   objects_to_draw.push_back(Magick::DrawableFont("-*-helvetica-medium-r-normal-*-*-300-*-*-*-*-iso8859-1"));
   fwt::ColorSymbolTable::ColorSymbolColT::const_iterator it = color_letter.table().begin();
   size_t i = 0;
-  for(; it != color_letter.table().end(); ++it, ++i)
-  {
+  for (; it != color_letter.table().end(); ++it, ++i) {
     objects_to_draw.push_back(Magick::DrawableFillColor(fwt::MagickColor(it->first)));
     objects_to_draw.push_back(Magick::DrawableRectangle(10, i * 200 + 10, 280, (i + 1) * 200));
     objects_to_draw.push_back(Magick::DrawableFillColor(Magick::Color("black")));
@@ -248,10 +237,8 @@ Magick::Color IMagickImage::process_element(size_t x0, size_t y0,
   
   Magick::Color color;
   
-  for(size_t y = y0; y < y1; ++y)
-  {
-    for(size_t x = x0; x < x1; ++x)
-    {
+  for (size_t y = y0; y < y1; ++y) {
+    for (size_t x = x0; x < x1; ++x) {
       color = _img.pixelColor(x, y);
       r += color.redQuantum();
       g += color.greenQuantum();
@@ -278,8 +265,7 @@ Magick::Color IMagickImage::process_element(size_t x0, size_t y0,
 //  // fwt::ColorRange range(start_color, end_color);
 //  // 
 //  // std::vector<fwt::Color> colorsVec(start_color);
-//  // for(size_t i = 0; i <= num_colors - 2; ++i)
-//  // {
+//  // for (size_t i = 0; i <= num_colors - 2; ++i) {
 //  //  colorsVec.push_back(range.middle());
 //  // }
 //  // colorsVec.push_back(end_color);
@@ -288,16 +274,14 @@ Magick::Color IMagickImage::process_element(size_t x0, size_t y0,
 //  
 //  
 //  // size_t color_line = max_color * pow(10,2) + max_color * pow(10,1) + max_color;
-//  // if(num_colors >= color_line)
-//  // {
+//  // if (num_colors >= color_line) {
 //  //  return std::vector<Magick::Color>();
 //  // }
 //  // 
 //  // std::vector<Magick::Color> colorsVec;
 //  // size_t step = static_cast<size_t>(floor(color_line / num_colors));
 //  // 
-//  // for(size_t i = 0; i <= step * num_colors; ++i)
-//  // {
+//  // for (size_t i = 0; i <= step * num_colors; ++i) {
 //  //  i / max_color;
 //  //  colorsVec.push_back(Magick::Color(i, i, i))
 //  // }

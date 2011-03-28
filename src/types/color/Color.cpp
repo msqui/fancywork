@@ -24,19 +24,16 @@ Color::Color(const std::string& str, const std::string& delimiter)
   std::vector<std::string> rgb;
   boost::split(rgb, str, boost::is_any_of(delimiter));
   
-  if(rgb.size() < 3)
-  {
+  if (rgb.size() < 3) {
     throw std::runtime_error("wrong file format");
   }
   
-  try
-  {
+  try {
     _r = boost::lexical_cast<size_t>(rgb[0]);
     _g = boost::lexical_cast<size_t>(rgb[1]);
     _b = boost::lexical_cast<size_t>(rgb[2]);
   }
-  catch(boost::bad_lexical_cast& exc)
-  {
+  catch (boost::bad_lexical_cast& exc) {
     throw std::runtime_error("wrong file format");
   }
 }

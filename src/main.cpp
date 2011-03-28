@@ -64,8 +64,7 @@ int main (int argc, char* argv[])
   // ===========================
   // = Command line processing =
   // ===========================
-  try
-  {
+  try {
     po::options_description main_desc("Mandatory params");
     main_desc.add_options()
       ("input-file,i", po::value<FilenamesVecT>(&input_files), "input image file")
@@ -94,30 +93,25 @@ int main (int argc, char* argv[])
       options(desc).positional(p).run(), vm);
     po::notify(vm);
   
-    if(vm.count("help"))
-    {
+    if (vm.count("help")) {
       usage(util::Messages::usage, desc);
       return EXIT_FAILURE;
     }
-    if(vm.count("version"))
-    {
+    if (vm.count("version")) {
       std::cout << util::Messages::version << std::endl;
       return EXIT_FAILURE;
     }
   
-    if (!vm.count("input-file"))
-    {
+    if (!vm.count("input-file")) {
       std::cout << util::Messages::no_files_to_process << std::endl;
       return EXIT_FAILURE;
     }
   }
-  catch(std::exception& exc)
-  {
+  catch (std::exception& exc) {
     std::cerr << "Error: " << exc.what() << std::endl;
     return EXIT_FAILURE;
   }
-  catch(...)
-  {
+  catch (...) {
     std::cerr << "Unknown exception!" << std::endl;
     return EXIT_FAILURE;
   }
@@ -126,19 +120,16 @@ int main (int argc, char* argv[])
   // =====================
   // = Images processing =
   // =====================
-  try
-  {
+  try {
     fancy::Image::ImagePtrT myImg;
     ProcessFile process_file(num_colors, square_side);
-    for_each(input_files.begin(), input_files.end(), process_file);
+    std::for_each(input_files.begin(), input_files.end(), process_file);
   }
-  catch(Magick::Error& e)
-  {
+  catch (Magick::Error& e) {
     std::cout << "Exception caught: " << e.what() << std::endl;
     return EXIT_FAILURE;
   }
-  catch(...)
-  {
+  catch (...) {
     std::cout << "Unhandled exception!" << std::endl;
     return EXIT_FAILURE;
   }
