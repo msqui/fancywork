@@ -46,9 +46,9 @@ public:
                         const std::string& suffix = "fancy") = 0;
   
 protected:
-  // ===========
-  // = Members =
-  // ===========
+  // ==========
+  // = Fields =
+  // ==========
   std::string _filename;
   size_t _width;
   size_t _height;
