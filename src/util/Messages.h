@@ -20,6 +20,9 @@ public:
   static const std::string no_files_to_process;
   
 private:
+  /**
+   * This class can not be instantiated
+  **/
   Messages ();
 };
 
