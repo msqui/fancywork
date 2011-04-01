@@ -15,7 +15,7 @@ public:
   Color(size_t r, size_t g, size_t b);
   Color(const std::string& str, const std::string& delimiter = ",");
   
-  ~Color();
+  virtual ~Color();
   
   std::ostream& to_stream(std::ostream& ostr) const;
   std::string str() const;
