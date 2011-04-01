@@ -4,7 +4,7 @@
 #include "Image.h"
 
 #include <string>
-#include <boost/utility.hpp>
+
 #include <boost/shared_ptr.hpp>
 
 #include <boost/gil/gil_all.hpp>
@@ -13,7 +13,7 @@ namespace bg = boost::gil;
 namespace fw {
 namespace fancy {
 
-class GILImage : public Image, private boost::noncopyable
+class GILImage : public Image
 {
 public:
   typedef boost::shared_ptr<GILImage> GILImagePtrT;

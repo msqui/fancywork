@@ -2,14 +2,16 @@
 #define __IMAGE_H__
 
 #include <string>
+
 #include <boost/shared_ptr.hpp>
+#include <boost/utility.hpp>
 
 namespace fw {
 namespace fancy {
 /**
  * Abstract base class for image processors
 **/
-class Image
+class Image : private boost::noncopyable
 {
 public:
   typedef boost::shared_ptr<Image> ImagePtrT;

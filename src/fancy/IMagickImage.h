@@ -4,7 +4,7 @@
 #include "Image.h"
 
 #include <string>
-#include <boost/utility.hpp>
+
 #include <boost/shared_ptr.hpp>
 
 #include <Magick++.h>
@@ -12,7 +12,7 @@
 namespace fw {
 namespace fancy {
 
-class IMagickImage : public Image, private boost::noncopyable
+class IMagickImage : public Image
 {
 public:
   typedef boost::shared_ptr<IMagickImage> IMagickImagePtrT;
