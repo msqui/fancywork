@@ -11,7 +11,9 @@
 
 namespace fw {
 namespace fancy {
-
+/**
+ * ImageMagick Image implementation
+**/
 class IMagickImage : public Image
 {
 public:
