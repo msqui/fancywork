@@ -50,6 +50,9 @@ Color::Color(const std::string& str, const std::string& delimiter)
 Color::~Color()
 {}
 
+/**
+ * Uses stringstream to convert numbers to string
+**/
 std::string Color::str() const
 {
   std::stringstream ss;
