@@ -54,6 +54,9 @@ protected:
   unsigned int _height;
 };
 
+// ==============================
+// = Inline getters definitions =
+// ==============================
 inline
 unsigned int Image::width() const
 {
