@@ -7,15 +7,12 @@
 
 namespace fw {
 namespace types {
-
-/*
-  TODO add Symbol superposition
-*/
+/**
+ * Represents character string corresponding to some color
+**/
 class Symbol
 {
 public:
-  typedef std::vector<Symbol> SymbolCollT;
-  
   Symbol();
   Symbol(const std::string& s);
   
@@ -27,12 +24,12 @@ public:
   friend bool operator== (const Symbol& s1, const Symbol& s2);
   
 private:
-  // SymbolCollT _symbol;
   std::string _symbol;
 };
 
-
-
+/**
+ * Represents undefined symbol
+**/
 class NoSymbol : public Symbol
 {
 public:
