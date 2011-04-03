@@ -12,15 +12,22 @@ namespace types {
 namespace color {
 
 Color::Color() :
-  _r(0), _g(0), _b(0)
+  _r(0),
+  _g(0),
+  _b(0)
 {}
 
 Color::Color(unsigned int r,
               unsigned int g,
               unsigned int b) :
-  _r(r), _g(g), _b(b)
+  _r(r),
+  _g(g),
+  _b(b)
 {}
 
+/**
+ * Split color, treated as string with delimiters, to R G and B
+**/
 Color::Color(const std::string& str, const std::string& delimiter)
 {
   std::vector<std::string> rgb;
@@ -43,12 +50,6 @@ Color::Color(const std::string& str, const std::string& delimiter)
 Color::~Color()
 {}
 
-std::ostream& Color::to_stream(std::ostream& ostr) const
-{
-  ostr << "(" << _r << ";" << _g << ";" << _b << ")";
-  return ostr;
-}
-
 std::string Color::str() const
 {
   std::stringstream ss;
@@ -56,8 +57,6 @@ std::string Color::str() const
 
   return ss.str();
 }
-
-
 
 bool operator< (const Color& c1, const Color& c2)
 {
@@ -70,6 +69,12 @@ bool operator< (const Color& c1, const Color& c2)
 std::ostream& operator<< (std::ostream& ostr, const Color& color)
 {
   (void) color.to_stream(ostr);
+  return ostr;
+}
+
+std::ostream& Color::to_stream(std::ostream& ostr) const
+{
+  ostr << "(" << _r << ";" << _g << ";" << _b << ")";
   return ostr;
 }
 
