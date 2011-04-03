@@ -9,7 +9,9 @@
 namespace fw {
 namespace types {
 namespace tables {
-
+/**
+ * Represents picture color space
+**/
 class ColorTable
 {
 public:

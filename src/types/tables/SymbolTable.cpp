@@ -29,9 +29,7 @@ void SymbolTable::add(const std::string& string)
   }
 }
 
-/*
-  TODO return Symbol instead of string
-*/
+// TODO return Symbol instead of string
 std::string SymbolTable::operator[] (size_t n) const
 {
   size_t size = _table.size();

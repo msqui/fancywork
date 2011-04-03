@@ -11,7 +11,9 @@
 namespace fw {
 namespace types {
 namespace tables {
-
+/**
+ * Maps Color to appropriate symbol
+**/
 class ColorSymbolTable
 {
 public:

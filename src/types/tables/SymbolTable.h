@@ -11,7 +11,9 @@ namespace fwt = fw::types;
 namespace fw {
 namespace types {
 namespace tables {
-
+/**
+ * Represents symbol alphabet
+**/
 class SymbolTable
 {
 public: 
