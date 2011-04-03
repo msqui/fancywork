@@ -72,7 +72,7 @@ void IMagickImage::process(size_t num_colors,
   }
   
   #ifdef DEBUG
-  std::cout << color_table.str() << std::endl;
+    std::cout << color_table.str() << std::endl;
   #endif
   
   // =======================
