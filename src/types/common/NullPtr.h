@@ -2,7 +2,9 @@
 #define __NULLPTR_H__
 
 #include <boost/shared_ptr.hpp>
-
+/**
+ * Represents boost::shared_ptr<T> equivalent to null-ptr
+**/
 class NullPtr
 {
 public:
