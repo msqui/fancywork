@@ -43,7 +43,6 @@ void IMagickImage::process(size_t num_colors,
   // =================
   // = Process image =
   // =================
-  
   // reduce image
   unsigned int mod_width = width() / square_side;
   unsigned int mod_height = height() / square_side;
@@ -52,8 +51,6 @@ void IMagickImage::process(size_t num_colors,
   new_img.zoom(Magick::Geometry(mod_width, mod_height));
   unsigned int new_width = new_img.columns();
   unsigned int new_height = new_img.rows();
-  
-  // new_img.quantize();
   
   // ==================
   // = Process colors =
@@ -99,38 +96,6 @@ void IMagickImage::process(size_t num_colors,
   fs << line << "\n";
   fs << "Legend:\n" << color_letter.legend();
   fs.close();
-}
-
-// TODO this method is unused
-Magick::Color
-IMagickImage::process_element(unsigned int x0, unsigned int y0,
-                              unsigned int x1, unsigned int y1)
-{
-  
-  unsigned int  r = 0, 
-                g = 0, 
-                b = 0;
-                
-  unsigned int total = 0;
-  
-  Magick::Color color;
-  
-  for (unsigned int y = y0; y < y1; ++y) {
-    for (unsigned int x = x0; x < x1; ++x) {
-      color = _img.pixelColor(x, y);
-      r += color.redQuantum();
-      g += color.greenQuantum();
-      b += color.blueQuantum();
-      
-      ++total;
-    }
-  }
-  
-  r = static_cast<unsigned int>(floor(r / total));
-  g = static_cast<unsigned int>(floor(g / total));
-  b = static_cast<unsigned int>(floor(b / total));
-  
-  return Magick::Color(r, g, b, 0);
 }
 
 }}

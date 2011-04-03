@@ -43,12 +43,6 @@ private:
    * Construct only using Image::create factory method
   **/
   IMagickImage(const std::string& filename);
-  
-  // =================
-  // = Inner methods =
-  // =================
-  Magick::Color process_element(unsigned int x0, unsigned int y0,
-                                unsigned int x1, unsigned int y1);
 };
 
 }}
