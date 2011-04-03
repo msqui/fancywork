@@ -101,6 +101,7 @@ void IMagickImage::process(size_t num_colors,
   fs.close();
 }
 
+// TODO this method is unused
 Magick::Color
 IMagickImage::process_element(unsigned int x0, unsigned int y0,
                               unsigned int x1, unsigned int y1)
