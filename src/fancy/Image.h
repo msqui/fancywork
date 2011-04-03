@@ -33,8 +33,8 @@ public:
   // ===========
   std::string filename() const;
   
-  size_t width() const;
-  size_t height() const;
+  unsigned int width() const;
+  unsigned int height() const;
   
   // ====================
   // = Abstract methods =
@@ -42,7 +42,7 @@ public:
   virtual void open(const std::string& filename) = 0;
   
   virtual void process(size_t num_colors, 
-                        size_t square_side, 
+                        unsigned int square_side, 
                         const std::string& suffix = "fancy") = 0;
   
 protected:
@@ -50,9 +50,21 @@ protected:
   // = Fields =
   // ==========
   std::string _filename;
-  size_t _width;
-  size_t _height;
+  unsigned int _width;
+  unsigned int _height;
 };
+
+inline
+unsigned int Image::width() const
+{
+  return _width;
+}
+
+inline
+unsigned int Image::height() const
+{
+  return _height;
+}
 
 }}
 

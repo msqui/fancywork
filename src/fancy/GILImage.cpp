@@ -31,7 +31,7 @@ void GILImage::open(const std::string& filename)
 }
 
 void GILImage::process(size_t num_colors,
-                        size_t square_side,
+                        unsigned int square_side,
                         const std::string& suffix)
 {
   // =================
@@ -39,8 +39,8 @@ void GILImage::process(size_t num_colors,
   // =================
   
   // reduce image
-  size_t new_width = width() / square_side;
-  size_t new_height = height() / square_side;
+  unsigned int new_width = width() / square_side;
+  unsigned int new_height = height() / square_side;
   
   bg::rgb8_image_t new_img(new_width, new_height);
   // bg::resize_view(bg::const_view(_img), bg::view(new_img), bg::nearest_neighbor_sampler());
@@ -51,9 +51,9 @@ void GILImage::process(size_t num_colors,
   fw::types::ColorTable color_table;
   fw::types::Color color;
   bg::rgb8_view_t new_img_view = bg::view(new_img);
-  for (size_t y = 0; y < new_height; ++y) {
+  for (unsigned int y = 0; y < new_height; ++y) {
     bg::rgb8_view_t::x_iterator x_it = new_img_view.row_begin(y);
-    for (size_t x = 0; x < new_width; ++x) {
+    for (unsigned int x = 0; x < new_width; ++x) {
       // std::cout << x_it[x].red << "\t";
     }
     std::cout << std::endl;
@@ -65,8 +65,8 @@ void GILImage::process(size_t num_colors,
   // // analyze image colors
   // fw::types::ColorTable color_table;
   // Magick::Color color;
-  // for (size_t y = 0; y < new_height; ++y) {
-  //  for (size_t x = 0; x < new_width; ++x) {
+  // for (unsigned int y = 0; y < new_height; ++y) {
+  //  for (unsigned int x = 0; x < new_width; ++x) {
   //    color = new_img.pixelColor(x,y);
   //    color_table.add(fw::types::MagickColor(color), fw::types::MagickColor(color));
   //  }
@@ -78,8 +78,8 @@ void GILImage::process(size_t num_colors,
   // // =======================
   // // = Save modified image =
   // // =======================
-  // for (size_t y = 0; y < new_height; ++y) {
-  //  for (size_t x = 0; x < new_width; ++x) {
+  // for (unsigned int y = 0; y < new_height; ++y) {
+  //  for (unsigned int x = 0; x < new_width; ++x) {
   //    new_img.pixelColor(x, y, fw::types::MagickColor(color_table.find(fw::types::MagickColor(new_img.pixelColor(x, y)))));
   //  }
   // }

@@ -31,7 +31,7 @@ public:
   void open(const std::string& filename);
   
   void process(size_t num_colors,
-                size_t square_side,
+                unsigned int square_side,
                 const std::string& suffix);
   
 private:

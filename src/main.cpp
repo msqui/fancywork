@@ -24,7 +24,7 @@ typedef std::vector<FilenameT> FilenamesVecT;
  * Functor to process each file in list
 **/
 struct ProcessFile : public std::unary_function<FilenameT, void> {
-  ProcessFile(size_t num_colors, size_t square_side) :
+  ProcessFile(size_t num_colors, unsigned int square_side) :
     _num_colors(num_colors),
     _square_side(square_side)
   {}
@@ -45,7 +45,7 @@ struct ProcessFile : public std::unary_function<FilenameT, void> {
   
 private:
   size_t _num_colors;
-  size_t _square_side;
+  unsigned int _square_side;
 };
 
 int main (int argc, char* argv[])
@@ -57,7 +57,7 @@ int main (int argc, char* argv[])
   FilenamesVecT input_files;
   
   size_t num_colors;
-  size_t square_side;
+  unsigned int square_side;
   
   // ===========================
   // = Command line processing =
@@ -70,7 +70,7 @@ int main (int argc, char* argv[])
 
     po::options_description opt_desc("Optional params");
     opt_desc.add_options()
-      ("side,s", po::value<size_t>(&square_side)->default_value(5), "fancy square side")
+      ("side,s", po::value<unsigned int>(&square_side)->default_value(5), "fancy square side")
       ("colors,c", po::value<size_t>(&num_colors)->default_value(16), "number of colors")
     ;
       

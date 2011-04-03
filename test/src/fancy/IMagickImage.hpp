@@ -17,8 +17,8 @@ public:
   static const char* FILENAME;
   static const char* TYPE;
   
-  static const size_t WIDTH;
-  static const size_t HEIGHT;
+  static const unsigned int WIDTH;
+  static const unsigned int HEIGHT;
   
   static const Magick::Color WHITE_COLOR;
   
@@ -41,8 +41,8 @@ protected:
 const char* IMagickImageTest::FILENAME("test_img.jpg");
 const char* IMagickImageTest::TYPE("JPEG");
 
-const size_t IMagickImageTest::WIDTH(20);
-const size_t IMagickImageTest::HEIGHT(20);
+const unsigned int IMagickImageTest::WIDTH(20);
+const unsigned int IMagickImageTest::HEIGHT(20);
 
 const Magick::Color IMagickImageTest::WHITE_COLOR("white");
 
