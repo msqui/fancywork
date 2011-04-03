@@ -30,17 +30,22 @@ struct ProcessFile : public std::unary_function<FilenameT, void> {
   {}
   
   void operator() (FilenameT filename) const {
-    fancy::Image::ImagePtrT myImg = 
-        fancy::Image::create<fancy::IMagickImage>(filename);
-        
-    std::cout << myImg->filename() << " has:" << std::endl;
-    std::cout << myImg->width() << " columns" << std::endl;
-    std::cout << myImg->height() << " rows" << std::endl;
+    #if defined GILIMAGE
+      fancy::Image::ImagePtrT myImg = 
+          fancy::Image::create<fancy::GILImage>(filename);
+      myImg->process(num_colors, square_side, tt);
+    #else
+      fancy::Image::ImagePtrT myImg = 
+          fancy::Image::create<fancy::IMagickImage>(filename);
+    #endif
+    
+    #ifdef DEBUG
+      std::cout << myImg->filename() << " has:" << std::endl;
+      std::cout << myImg->width() << " columns" << std::endl;
+      std::cout << myImg->height() << " rows" << std::endl;
+    #endif
     
     myImg->process(_num_colors, _square_side);
-    
-    // myImg = fancy::Image::create<fancy::GILImage>(filename);
-    // myImg->process(num_colors, square_side, tt);
   }
   
 private:

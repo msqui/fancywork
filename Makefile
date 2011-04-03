@@ -18,6 +18,7 @@ CC=g++
 # compilation flags
 CFLAGS=-W -Wall -pthread \
 			-I$(CURDIR)/$(SRC_DIR) \
+			-DDEBUG \
 			`Magick++-config --cppflags`
 
 # linking flags

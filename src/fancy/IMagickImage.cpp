@@ -71,9 +71,9 @@ void IMagickImage::process(size_t num_colors,
     }
   }
   
-  // DEBUG
+  #ifdef DEBUG
   std::cout << color_table.str() << std::endl;
-  // END DEBUG
+  #endif
   
   // =======================
   // = Save modified image =
