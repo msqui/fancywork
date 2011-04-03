@@ -14,10 +14,17 @@ class Color
 {
 public:
   Color();
+  //
+  // Color uses default copy ctor and assignment operator
+  //
+  // Color(const Color& color);
+  // Color& operator= (const Color& color);
+  
   Color(unsigned int r,
         unsigned int g,
         unsigned int b);
   Color(const std::string& str, const std::string& delimiter = ",");
+
   
   virtual ~Color();
   
@@ -51,8 +58,7 @@ private:
   // =================
   // = Inner methods =
   // =================
-  
-  std::ostream& Color::to_stream(std::ostream& ostr) const;
+  std::ostream& to_stream(std::ostream& ostr) const;
 };
 
 }}}

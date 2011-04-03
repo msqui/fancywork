@@ -8,12 +8,16 @@
 namespace fw {
 namespace types {
 namespace color {
-
+/**
+ * Adapts Magick::Color to our Color class
+**/
 class MagickColor : public Color
 {
 public:
   MagickColor();
   MagickColor(const Color& color);
+  MagickColor& operator= (const MagickColor& color);
+  
   MagickColor(const Magick::Color& color);
   
   operator Magick::Color ();
