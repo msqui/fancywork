@@ -8,8 +8,12 @@
 namespace po = boost::program_options;
 
 #include "util/Messages.h"
-#include "fancy/IMagickImage.h"
-#include "fancy/GILImage.h"
+
+#if defined GILIMAGE
+  #include "fancy/GILImage.h"
+#else
+  #include "fancy/IMagickImage.h"
+#endif
 
 using namespace fw;
 
@@ -33,7 +37,6 @@ struct ProcessFile : public std::unary_function<FilenameT, void> {
     #if defined GILIMAGE
       fancy::Image::ImagePtrT myImg = 
           fancy::Image::create<fancy::GILImage>(filename);
-      myImg->process(num_colors, square_side, tt);
     #else
       fancy::Image::ImagePtrT myImg = 
           fancy::Image::create<fancy::IMagickImage>(filename);
@@ -127,10 +130,13 @@ int main (int argc, char* argv[])
     ProcessFile process_file(num_colors, square_side);
     std::for_each(input_files.begin(), input_files.end(), process_file);
   }
-  catch (Magick::Error& e) {
-    std::cout << "Exception caught: " << e.what() << std::endl;
-    return EXIT_FAILURE;
-  }
+  #if defined GILIMAGE
+  #else
+    catch (Magick::Error& e) {
+      std::cout << "Exception caught: " << e.what() << std::endl;
+      return EXIT_FAILURE;
+    }
+  #endif
   catch (...) {
     std::cout << "Unhandled exception!" << std::endl;
     return EXIT_FAILURE;
