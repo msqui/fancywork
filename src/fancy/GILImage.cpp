@@ -4,8 +4,8 @@
 #include <boost/gil/extension/numeric/sampler.hpp>
 #include <boost/gil/extension/numeric/resample.hpp>
 
-#include "types/Color.h"
-#include "types/ColorTable.h"
+#include "types/color/Color.h"
+#include "types/tables/ColorTable.h"
 
 namespace fw {
 namespace fancy {
