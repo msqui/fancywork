@@ -21,7 +21,7 @@ SymbolTable::SymbolTable(const std::string& string) :
 
 void SymbolTable::add(const std::string& string)
 {
-  char chr[1];
+  char chr[] = {' ', '\0'};
   std::string::const_iterator it = string.begin();
   for (; it != string.end(); ++it) {
     chr[0] = *it;
